@@ -16,5 +16,8 @@ export default defineConfig(({ mode }) => ({
   server: {
     watch: { usePolling: true },
     open: true,
+    proxy: {
+      "/api": "http://localhost:8000",
+    },
   },
 }));

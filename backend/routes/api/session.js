@@ -21,11 +21,6 @@ const validateLogin = [
   handleValidationErrors,
 ];
 
-// for dev only//
-router.get("/login", (req, res) => {
-  res.json({ csrfToken: req.csrfToken() });
-});
-
 // Log in
 router.post("/", validateLogin, async (req, res, next) => {
   const { credential, password } = req.body;
