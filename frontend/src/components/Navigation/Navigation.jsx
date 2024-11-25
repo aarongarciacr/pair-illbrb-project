@@ -1,40 +1,31 @@
 import { Link } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
-import * as sessionActions from "../../store/session";
+import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
-  const dispatch = useDispatch();
 
-  const logout = (e) => {
-    e.preventDefault();
-    dispatch(sessionActions.logout());
-  };
+  const navClass = sessionUser ? "nav flex-layout" : "nav grid-layout";
 
   const sessionLinks = sessionUser ? (
-    <>
-      <li>
-        <ProfileButton user={sessionUser} />
-      </li>
-      <li>
-        <button onClick={logout}>Log Out</button>
-      </li>
-    </>
+    <li className="logged-navlinks">
+      <ProfileButton user={sessionUser} />
+    </li>
   ) : (
     <>
-      <li>
+      <li id="login-link">
         <Link to="/login">Log In</Link>
       </li>
-      <li>
+      <li id="signup-link">
         <Link to="/signup">Sign Up</Link>
       </li>
     </>
   );
 
   return (
-    <ul>
-      <li>
+    <ul className={navClass}>
+      <li id="home-link">
         <Link to="/">Home</Link>
       </li>
       {isLoaded && sessionLinks}

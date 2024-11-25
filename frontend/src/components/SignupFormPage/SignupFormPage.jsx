@@ -61,7 +61,6 @@ const SignupFormPage = () => {
         </label>
         <br></br>
         {errors.firstName && <p>{errors.firstName}</p>}
-        <br></br>
         <label htmlFor="lastName">
           Last name:
           <br />
@@ -77,7 +76,6 @@ const SignupFormPage = () => {
         </label>
         <br></br>
         {errors.lastName && <p>{errors.lastName}</p>}
-        <br></br>
         <label htmlFor="username">
           Username:
           <br />
@@ -93,7 +91,6 @@ const SignupFormPage = () => {
         </label>
         <br></br>
         {errors.username && <p>{errors.username}</p>}
-        <br></br>
         <label htmlFor="email">
           Email:
           <br />
@@ -109,7 +106,6 @@ const SignupFormPage = () => {
         </label>
         <br></br>
         {errors.email && <p>{errors.email}</p>}
-        <br></br>
         <label htmlFor="password">
           Password:
           <br />
@@ -125,7 +121,6 @@ const SignupFormPage = () => {
         </label>
         <br></br>
         {errors.password && <p>{errors.password}</p>}
-        <br></br>
         <label htmlFor="confirm-password">
           Confirm password:
           <br />
@@ -141,7 +136,7 @@ const SignupFormPage = () => {
         </label>
         <br></br>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
-        <br></br>
+
         <button className="button-75" role="button" type="submit">
           <span className="text">Sign Up</span>
         </button>
