@@ -14,6 +14,10 @@
     gap: 10px;
 }
 
+.hidden{
+    display: none;
+}
+
 .logged-navlinks {
     display: flex;
     flex-direction: row;
@@ -21,7 +25,8 @@
 }
 
 .profile-button {
-    width: 50%;
+    min-width: fit-content;
+    /* width: 50%; */
     height: 2.6em;
     margin: 0;
     align-self: flex-start;
@@ -55,10 +60,12 @@ ul {
 
 .profile-dropdown {
     text-align: end;
-    display: flex;
-    flex-direction: column;
-    gap: 2px;
-    padding: 0;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* gap: 2px;
+    padding: 0; */
+    /* border: 1px solid rgb(218, 218, 218); */
+
 }
 
 
