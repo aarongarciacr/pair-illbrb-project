@@ -1,10 +1,11 @@
 .login-box {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     display: flex;
+    margin: 0;
+    height: auto;
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    height: 100vh;
     width: auto;
     margin: 0;
     text-align: center;
