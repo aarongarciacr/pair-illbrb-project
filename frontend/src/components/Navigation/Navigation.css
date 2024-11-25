@@ -1,0 +1,133 @@
+.nav.flex-layout {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    height: 7.5em;
+}
+
+.nav.grid-layout {
+    display: grid;
+    grid-template-columns: 8fr 1fr 1fr;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+
+    gap: 10px;
+}
+
+.hidden{
+    display: none;
+}
+
+.logged-navlinks {
+    display: flex;
+    flex-direction: row;
+    gap: 15px;
+}
+
+.profile-button {
+    min-width: fit-content;
+    /* width: 50%; */
+    height: 2.6em;
+    margin: 0;
+    align-self: flex-start;
+    margin-bottom: 23%;
+    border: 0;
+    border-radius: 12px;
+    background: linear-gradient(to bottom right, #FE375B, #D70566);
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    outline: transparent;
+    padding: 0 1rem;
+    transition: box-shadow .2s ease-in-out;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+    white-space: nowrap;
+}
+
+.profile-button:not([disabled]):focus {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+.profile-button:not([disabled]):hover {
+  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+}
+
+ul {
+   list-style-type: none;   
+}
+
+.profile-dropdown {
+    text-align: end;
+    /* display: flex; */
+    /* flex-direction: column; */
+    /* gap: 2px;
+    padding: 0; */
+    /* border: 1px solid rgb(218, 218, 218); */
+
+}
+
+
+
+#logout {
+  background: #D70566;
+  border: 1px solid #FE375B;
+  border-radius: 6px;
+  box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+  box-sizing: border-box;
+  color: #FFFFFF;
+  cursor: pointer;
+  display: inline-block;
+  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-size: 13px;
+  font-weight: 800;
+  line-height: 16px;
+  height: 30px;
+  outline: 0;
+  padding: 0 10px;
+  /* padding: 12px; */
+  text-align: center;
+  text-rendering: geometricprecision;
+  text-transform: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  vertical-align: middle;
+}
+
+#logout:hover,
+#logout:active {
+  background-color: initial;
+  background-position: 0 0;
+  color: #FE375B;
+}
+
+#logout:active {
+  opacity: .5;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+} 
+
+#login-link,
+#signup-link {
+    text-align: center;
+    transition: transform 0.2s ease, opacity 0.2s ease; /* Smooth transition for hover effects */
+}
+
+#home-link {
+    text-align: start;
+    transition: transform 0.2s ease, opacity 0.2s ease; /* Smooth transition for hover effects */
+    transform-origin: left;
+}
+
+#login-link:hover,
+#signup-link:hover,
+#home-link:hover {
+    transform: scale(.9);
+    opacity: .75;
+}
+
