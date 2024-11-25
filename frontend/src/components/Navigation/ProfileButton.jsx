@@ -2,6 +2,9 @@ import { useState, useEffect, useRef } from "react";
 import { useDispatch } from "react-redux";
 import { VscAccount } from "react-icons/vsc";
 import * as sessionActions from "../../store/session";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import LoginFormModal from "../LoginFormModal/LoginFormModal";
+import SignupFormModal from "../SignupFormModal/SignupFormModal";
 
 function ProfileButton({ user }) {
   const dispatch = useDispatch();
@@ -18,7 +21,7 @@ function ProfileButton({ user }) {
     if (!showMenu) return;
 
     const closeMenu = (e) => {
-      if (ulRef.current && !ulRef.current.contains(e.target)) {
+      if (!ulRef.current.contains(e.target)) {
         setShowMenu(false);
       }
     };
@@ -49,16 +52,35 @@ function ProfileButton({ user }) {
         />
       </button>
       <ul className={ulClassName} ref={ulRef}>
-        <li id="username">{user.username}</li>
-        <li id="name">
-          {user.firstName} {user.lastName}
-        </li>
-        <li id="email">{user.email}</li>
-        <li>
-          <button id="logout" onClick={logout}>
-            Log Out
-          </button>
-        </li>
+        {user ? (
+          <>
+            <li id="username">{user.username}</li>
+            <li id="name">
+              {user.firstName} {user.lastName}
+            </li>
+            <li id="email">{user.email}</li>
+            <li>
+              <button id="logout" onClick={logout}>
+                Log Out
+              </button>
+            </li>
+          </>
+        ) : (
+          <>
+            <li>
+              <OpenModalButton
+                buttonText="Log In"
+                modalComponent={<LoginFormModal />}
+              />
+            </li>
+            <li>
+              <OpenModalButton
+                buttonText="Sign Up"
+                modalComponent={<SignupFormModal />}
+              />
+            </li>
+          </>
+        )}
       </ul>
     </>
   );
