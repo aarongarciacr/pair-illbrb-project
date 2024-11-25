@@ -1,10 +1,10 @@
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import * as sessionActions from "../../store/session";
-import { Navigate } from "react-router-dom";
+import { useModal } from "../../context/Modal";
 import "./SignupForm.css";
 
-const SignupFormPage = () => {
+const SignupFormModal = () => {
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -13,9 +13,7 @@ const SignupFormPage = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
-  const sessionUser = useSelector((state) => state.session.user);
-
-  if (sessionUser) return <Navigate to="/" replace={true} />;
+  const { closeModal } = useModal();
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,12 +27,14 @@ const SignupFormPage = () => {
           lastName,
           password,
         })
-      ).catch(async (res) => {
-        const data = await res.json();
-        if (data?.errors) {
-          setErrors(data.errors);
-        }
-      });
+      )
+        .then(closeModal)
+        .catch(async (res) => {
+          const data = await res.json();
+          if (data?.errors) {
+            setErrors(data.errors);
+          }
+        });
     }
     return setErrors({
       confirmPassword:
@@ -46,12 +46,10 @@ const SignupFormPage = () => {
     <div className="signup-box">
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit} className="signup-form">
-        <label htmlFor="firstName">
+        <label htmlFor="firstName" id="firstName">
           First name:
-          <br />
           <input
             type="text"
-            id="firstName-input"
             name="firstName"
             placeholder="Insert your first name"
             value={firstName}
@@ -59,14 +57,11 @@ const SignupFormPage = () => {
             required
           />
         </label>
-        <br></br>
         {errors.firstName && <p>{errors.firstName}</p>}
-        <label htmlFor="lastName">
+        <label htmlFor="lastName" id="lastName">
           Last name:
-          <br />
           <input
             type="text"
-            id="lastName-input"
             name="lastName"
             placeholder="Insert your last name"
             value={lastName}
@@ -74,14 +69,11 @@ const SignupFormPage = () => {
             required
           />
         </label>
-        <br></br>
         {errors.lastName && <p>{errors.lastName}</p>}
-        <label htmlFor="username">
+        <label htmlFor="username" id="username">
           Username:
-          <br />
           <input
             type="text"
-            id="username-input"
             name="username"
             placeholder="Insert a username"
             value={username}
@@ -89,14 +81,11 @@ const SignupFormPage = () => {
             required
           />
         </label>
-        <br></br>
         {errors.username && <p>{errors.username}</p>}
-        <label htmlFor="email">
+        <label htmlFor="email" id="email">
           Email:
-          <br />
           <input
             type="text"
-            id="email-input"
             name="email"
             placeholder="Insert your email"
             value={email}
@@ -104,14 +93,11 @@ const SignupFormPage = () => {
             required
           />
         </label>
-        <br></br>
         {errors.email && <p>{errors.email}</p>}
-        <label htmlFor="password">
+        <label htmlFor="password" id="password">
           Password:
-          <br />
           <input
             type="text"
-            id="password-input"
             name="password"
             placeholder="Insert a password"
             value={password}
@@ -119,14 +105,11 @@ const SignupFormPage = () => {
             required
           />
         </label>
-        <br></br>
         {errors.password && <p>{errors.password}</p>}
-        <label htmlFor="confirm-password">
+        <label htmlFor="confirm-password" id="confirm-password">
           Confirm password:
-          <br />
           <input
             type="text"
-            id="confirm-password-input"
             name="confirm-password"
             placeholder="Confirm password"
             value={confirmPassword}
@@ -134,10 +117,9 @@ const SignupFormPage = () => {
             required
           />
         </label>
-        <br></br>
         {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
 
-        <button className="button-75" role="button" type="submit">
+        <button className="button-75-signup" role="button" type="submit">
           <span className="text">Sign Up</span>
         </button>
       </form>
@@ -145,4 +127,4 @@ const SignupFormPage = () => {
   );
 };
 
-export default SignupFormPage;
+export default SignupFormModal;

@@ -1,20 +1,44 @@
 .signup-box {
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    width: auto;
-    margin: 0;
+    display: grid;
+    grid-template-rows: 1fr 3.3fr;
+    /* flex-direction: column; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* height: 100%px; */
+    width: 100%;
+    /* margin: auto; */
     text-align: center;   
+    /* height: auto; */
+    /* margin: auto; */
 }
 
 .signup-form {
-    display: flex;
-    flex-direction: column;
-    width: 30%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-areas: 
+    "firstName lastName"
+    "username username"
+    'email email'
+    'password confirmPassword' 
+    'button button';
+    gap: 5px;
+    width: 100%;
+    /* height: 100px; */
     /* gap: 0px 100px; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* align-content: center; */
+}
+
+
+
+#username {
+  grid-area: username;
+}
+
+#email {
+  grid-area: email;
 }
 
 input{
@@ -36,8 +60,8 @@ p {
     font-style: italic;
 }
 
-.button-75 {
-    margin: auto;
+.button-75-signup {
+  margin: auto;
   align-items: center;
   background-image: linear-gradient(135deg, #FE375B 40%, #D70566);
   border: 0;
@@ -63,32 +87,33 @@ p {
   user-select: none;
   -webkit-user-select: none;
   touch-action: manipulation;
+  grid-area: button;
 }
 
-.button-75:active {
+.button-75-signup:active {
   outline: 0;
 }
 
-.button-75:hover {
+.button-75-signup:hover {
   outline: 0;
 }
 
-.button-75 span {
+.button-75-signup span {
   transition: all 200ms;
 }
 
-.button-75:hover span {
+.button-75-signup:hover span {
   transform: scale(.9);
   opacity: .75;
 }
 
 @media screen and (max-width: 991px) {
-  .button-75 {
+  .button-75-signup {
     font-size: 15px;
     height: 50px;
   }
 
-  .button-75 span {
+  .button-75-signup span {
     line-height: 50px;
   }
 }
