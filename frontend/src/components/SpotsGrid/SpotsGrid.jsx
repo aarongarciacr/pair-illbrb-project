@@ -1,8 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
-import SpotCard from "./SpotCard";
+import SpotCard from "../SpotsCard/SpotCard";
 import { useEffect } from "react";
 import { fetchSpots } from "../../store/spots";
-// import "./SpotsGrid.css";
+import "./SpotsGrid.css";
 
 function SpotsGrid() {
   const dispatch = useDispatch();

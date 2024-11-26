@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Outlet, createBrowserRouter, RouterProvider } from "react-router-dom";
 import Navigation from "./components/Navigation/Navigation";
 import * as sessionActions from "./store/session";
-import SpotsGrid from "./components/Spots/SpotsGrid";
+import SpotsGrid from "./components/SpotsGrid/SpotsGrid";
 
 function Layout() {
   const dispatch = useDispatch();
