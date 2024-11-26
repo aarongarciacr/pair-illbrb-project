@@ -14,9 +14,14 @@
     gap: 10px;
 }
 
-.hidden{
-    display: none;
+.nav-box {
+  display: flex;
+  justify-content: space-around;
+  gap: 50%;
+  padding: 0 40px;
+  height: 7.5em;
 }
+
 
 .logged-navlinks {
     display: flex;
@@ -26,17 +31,19 @@
 
 .profile-button {
     min-width: fit-content;
+    width: 50%;
     /* width: 50%; */
     height: 2.6em;
     margin: 0;
-    align-self: flex-start;
-    margin-bottom: 23%;
+    /* align-self: flex-start; */
+    /* margin-bottom: 23%; */
     border: 0;
     border-radius: 12px;
     background: linear-gradient(to bottom right, #FE375B, #D70566);
     color: #FFFFFF;
     cursor: pointer;
-    display: inline-block;
+    display: flex;
+    justify-content: right; 
     outline: transparent;
     padding: 0 1rem;
     transition: box-shadow .2s ease-in-out;
@@ -60,15 +67,41 @@ ul {
 
 .profile-dropdown {
     text-align: end;
-    /* display: flex; */
-    /* flex-direction: column; */
-    /* gap: 2px;
-    padding: 0; */
-    /* border: 1px solid rgb(218, 218, 218); */
+    padding: 0;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 200ms ease, visibility 200ms ease;
+}
+
+.profile-dropdown.shown {
+  visibility: visible;
+  opacity: 1;
+  margin-top: 5px;
+}
+.profile-dropdown.hidden {
+  visibility: hidden;
+  opacity: 0;
+}
+
+.profile-box {
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: end;
+  height: max-content;
+}
+
+#login-link:hover,
+#signup-link:hover {
+  transform: scale(0.9);
+  transition: all 200ms;
+  cursor: pointer;
 
 }
 
-
+#home-link {
+  height: fit-content;
+}
 
 #logout {
   background: #D70566;

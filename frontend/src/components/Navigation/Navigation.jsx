@@ -1,18 +1,21 @@
 import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
+import { VscHome } from "react-icons/vsc";
 import "./Navigation.css";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
 
   return (
-    <ul>
-      <li>
-        <Link to="/">Home</Link>
+    <ul className="nav-box">
+      <li id="home-link">
+        <Link to="/">
+          <VscHome style={{ height: "2em", width: "2em" }} />
+        </Link>
       </li>
       {isLoaded && (
-        <li>
+        <li className="profile-box">
           <ProfileButton user={sessionUser} />
         </li>
       )}
