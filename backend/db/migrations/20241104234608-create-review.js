@@ -1,7 +1,10 @@
 "use strict";
 
 const options = {};
-if (process.env.NODE_ENV === "production") {
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "development_with_postgres"
+) {
   options.schema = process.env.SCHEMA;
 }
 
@@ -23,6 +26,7 @@ module.exports = {
           references: {
             model: "Users",
           },
+          onDelete: "CASCADE",
         },
         spotId: {
           type: Sequelize.INTEGER,
@@ -51,7 +55,7 @@ module.exports = {
           defaultValue: Sequelize.literal("CURRENT_TIMESTAMP"),
         },
       },
-      options,
+      options
     );
   },
   async down(queryInterface, Sequelize) {

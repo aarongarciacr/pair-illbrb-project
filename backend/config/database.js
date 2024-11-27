@@ -31,6 +31,12 @@ module.exports = {
     benchmark: true,
     logQueryParameters: true,
     typeValidation: true,
+    dialectOptions: {
+      ssl: {
+        require: true,
+        rejectUnauthorized: false, // Set to false for development purposes
+      },
+    },
     define: {
       schema: process.env.SCHEMA,
     },

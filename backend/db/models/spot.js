@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+
       Spot.belongsTo(models.User, {
         as: "Owner",
         foreignKey: "ownerId",
@@ -28,6 +29,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: "spotId",
         sourceKey: "id",
       });
+
       Spot.addScope("withAverageRating", (fieldName = "avgRating") => ({
         include: [
           {
@@ -36,7 +38,9 @@ module.exports = (sequelize, DataTypes) => {
           },
         ],
         attributes: {
-          include: [[fn("ROUND", fn("AVG", col("Reviews.stars"))), fieldName]],
+          include: [
+            [fn("ROUND", fn("AVG", col("Reviews.stars")), 2), fieldName],
+          ],
         },
         group: ["Spot.id"],
         subQuery: false,
@@ -102,7 +106,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
       },
       price: {
-        type: DataTypes.DECIMAL(10, 2),
+        type: DataTypes.NUMERIC(10, 2),
         allowNull: false,
         validate: {
           isPositive(value) {
@@ -112,21 +116,17 @@ module.exports = (sequelize, DataTypes) => {
           },
         },
         get() {
-          return parseFloat(this.getDataValue("lng"));
+          return parseFloat(this.getDataValue("price"));
         },
       },
       previewImage: {
         type: DataTypes.INTEGER,
-        allowNull: true,
-        references: {
-          model: "SpotImages",
-        },
       },
     },
     {
       sequelize,
       modelName: "Spot",
-    },
+    }
   );
   return Spot;
 };

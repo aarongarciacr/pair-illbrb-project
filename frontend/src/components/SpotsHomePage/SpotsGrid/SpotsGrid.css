@@ -1,7 +1,11 @@
 .spots-grid {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    margin: auto;
+    width: 90%;
+    
+    /* flex-wrap: wrap;
+    justify-content: center; */
     gap: 16px;
     padding: 16px;
     background-color: #f9f9f9;

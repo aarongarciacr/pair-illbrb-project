@@ -76,28 +76,49 @@ const validateQuery = [
 ];
 // Get all Spots
 router.get("/", validateQuery, async (req, res) => {
-  const { query } = req;
-  query.page ||= 1;
-  query.size ||= 20;
-  const { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } =
-    query;
-  const where = {
-    ...(minLat && { lat: { [Op.gte]: minLat } }),
-    ...(maxLat && { lat: { [Op.lte]: maxLat } }),
-    ...(minLng && { lng: { [Op.gte]: minLng } }),
-    ...(maxLng && { lng: { [Op.lte]: maxLng } }),
-    ...(minPrice && { price: { [Op.gte]: minPrice } }),
-    ...(maxPrice && { price: { [Op.lte]: maxPrice } }),
-  };
-  const offset = (page - 1) * size;
-  const limit = size;
-  const spots = await Spot.scope({ method: ["withAverageRating"] }).findAll({
-    where,
-    offset,
-    limit,
-  });
+  try {
+    const { query } = req;
 
-  return res.status(200).json({ Spots: spots, page, size });
+    // Default pagination values
+    query.page ||= 1;
+    query.size ||= 20;
+
+    const { page, size, minLat, maxLat, minLng, maxLng, minPrice, maxPrice } =
+      query;
+
+    // Validate query parameters
+    if (isNaN(page) || isNaN(size)) {
+      return res
+        .status(400)
+        .json({ message: "Page and size must be numbers." });
+    }
+
+    // Build the `where` clause
+    const where = {
+      ...(minLat && { lat: { [Op.gte]: parseFloat(minLat) } }),
+      ...(maxLat && { lat: { [Op.lte]: parseFloat(maxLat) } }),
+      ...(minLng && { lng: { [Op.gte]: parseFloat(minLng) } }),
+      ...(maxLng && { lng: { [Op.lte]: parseFloat(maxLng) } }),
+      ...(minPrice && { price: { [Op.gte]: parseFloat(minPrice) } }),
+      ...(maxPrice && { price: { [Op.lte]: parseFloat(maxPrice) } }),
+    };
+
+    // Pagination
+    const offset = (parseInt(page) - 1) * parseInt(size);
+    const limit = parseInt(size);
+
+    // Fetch spots with filters using the updated scope
+    const spots = await Spot.scope("withAverageRating").findAll({
+      where,
+      offset,
+      limit,
+    });
+
+    return res.status(200).json({ Spots: spots, page, size });
+  } catch (error) {
+    console.error("Error in GET /api/spots:", error); // Log the full error
+    return res.status(500).json({ message: "Internal Server Error" });
+  }
 });
 
 //Get spots of current user
@@ -243,18 +264,25 @@ router.post("/:spotId/bookings", verifyMakeBooking, async (req, res) => {
     where: {
       spotId: spot.id,
       [Op.or]: [
-        // requested start date falls within existing booking
+        // Requested start date falls within an existing booking
         {
           [Op.and]: [
             { startDate: { [Op.lte]: startDate } },
             { endDate: { [Op.gte]: startDate } },
           ],
         },
-        // extant start date falls within requested booking
+        // Requested end date falls within an existing booking
         {
           [Op.and]: [
-            { startDate: { [Op.gte]: startDate } },
             { startDate: { [Op.lte]: endDate } },
+            { endDate: { [Op.gte]: endDate } },
+          ],
+        },
+        // Existing booking fully encloses the requested dates
+        {
+          [Op.and]: [
+            { startDate: { [Op.lte]: startDate } },
+            { endDate: { [Op.gte]: endDate } },
           ],
         },
       ],
@@ -339,7 +367,7 @@ const validateReview = [
   check("review").notEmpty().withMessage("Review text is required"),
   check("stars")
     .notEmpty()
-    .isFloat({ min: 1, max: 5 })
+    .isInt({ min: 1, max: 5 })
     .withMessage("Stars must be an integer from 1 to 5"),
   handleValidationErrors,
 ];
@@ -377,6 +405,29 @@ router.post(
   }
 );
 
+router.get("/:spotId/image", async (req, res) => {
+  const { spotId } = req.params;
+  const parseSpotId = parseInt(spotId);
+  // Find the spot by ID
+  const spot = await Spot.findByPk(parseSpotId);
+  // console.log(spot.previewImage);
+
+  if (!spot) {
+    return res.status(404).json({ message: "Spot not found" });
+  }
+
+  // Use the previewImage field to fetch the corresponding SpotImage
+  const spotImage = await SpotImage.findOne({
+    where: { spotId: spot.previewImage }, // este tiene que ser la comparacion con previewImage y spotId
+  });
+
+  if (!spotImage) {
+    return res.status(404).json({ message: "Preview image not found" });
+  }
+
+  return res.status(200).json({ url: spotImage.url });
+});
+
 //Post an image based on a SpotId
 router.post("/:spotId/images", requireAuth, async (req, res) => {
   const { spotId } = req.params;
@@ -398,6 +449,7 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
   });
   if (preview) {
     spot.set("previewImage", spotImage.id);
+    await spot.save();
   }
   const response = { id: spotImage.id, url: spotImage.url, preview };
 

@@ -1,7 +1,10 @@
 "use strict";
 
 const options = {};
-if (process.env.NODE_ENV === "production") {
+if (
+  process.env.NODE_ENV === "production" ||
+  process.env.NODE_ENV === "development_with_postgres"
+) {
   options.schema = process.env.SCHEMA;
 }
 /** @type {import('sequelize-cli').Migration} */
@@ -49,7 +52,7 @@ module.exports = {
           type: Sequelize.DATE,
         },
       },
-      options,
+      options
     );
   },
   async down(queryInterface, Sequelize) {

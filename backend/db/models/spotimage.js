@@ -1,5 +1,7 @@
 "use strict";
+
 const { Model } = require("sequelize");
+
 module.exports = (sequelize, DataTypes) => {
   class SpotImage extends Model {
     /**
@@ -30,6 +32,7 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         references: {
           model: "Spots",
+          key: "id",
         },
       },
     },
