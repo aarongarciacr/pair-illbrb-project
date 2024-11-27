@@ -1,14 +1,13 @@
-// import "./SpotReviews.css";
+import "./SpotReviews.css";
 
 import { useSelector } from "react-redux";
 
 function SpotReviews({ reviews, isLoggedIn }) {
   const spot = useSelector((state) => state.spots.singleSpot);
+  const sessionUser = useSelector((state) => state.session.user);
 
-  //   useEffect(() => {
-  //     dispatch(getReviews(spot.id));
-  //   }, [dispatch]);
-  //   console.log(spot);
+  const isOwner = sessionUser?.id === spot?.Owner?.id;
+
   return (
     <div className="spot-reviews">
       <h2>
@@ -17,21 +16,22 @@ function SpotReviews({ reviews, isLoggedIn }) {
         {spot.numReviews} reviews
       </h2>
 
-      {isLoggedIn && (
+      {isLoggedIn && !isOwner && (
         <button className="post-review-button">Post Your Review</button>
       )}
 
       <div className="reviews-list">
         {reviews.map((review) => (
           <div key={review.id} className="review">
-            <h3>{review.User.firstName}</h3>{" "}
-            <p>
+            <h3 className="userFirstNameReview">{review.User.firstName}</h3>{" "}
+            <p className="dateReview">
               {new Date(review.createdAt).toLocaleDateString("en-US", {
                 month: "long",
+                year: "numeric",
               })}
             </p>
-            <p>Rating: ⭐ {review.stars}</p>
-            <p>{review.review}</p>
+            <p className="ratingReview">Rating: ⭐ {review.stars}</p>
+            <p className="reviewText">{review.review}</p>
           </div>
         ))}
       </div>

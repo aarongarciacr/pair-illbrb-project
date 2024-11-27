@@ -1,0 +1,21 @@
+.SpotMainImage {
+    display: flex;
+    flex-direction: column;
+    flex-flow: column-reverse;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
+    grid-area: mainImage;
+
+}
+
+.mainImage {
+    max-width: 500px;
+    border-radius: 10px;
+}
+
+h1 {
+    margin: 0;
+}
+
+p {
+    color: rgb(46, 46, 46);
+}

@@ -11,6 +11,7 @@ import {
   fetchSpotImages,
 } from "../../store/spots";
 import { useParams } from "react-router-dom";
+import "./SpotDetailsPage.css";
 
 function SpotDetailsPage() {
   const dispatch = useDispatch();

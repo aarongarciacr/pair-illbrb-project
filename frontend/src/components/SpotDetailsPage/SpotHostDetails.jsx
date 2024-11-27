@@ -1,4 +1,4 @@
-// import "./SpotHostDetails.css";
+import "./SpotHostDetails.css";
 
 import { useSelector } from "react-redux";
 

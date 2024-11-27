@@ -1,4 +1,4 @@
-// import "./SpotMainImage.css";
+import "./SpotMainImage.css";
 import { useDispatch } from "react-redux";
 import { useState, useEffect } from "react";
 import { fetchSpotPreviewImage } from "../../store/spots";
@@ -20,9 +20,9 @@ function SpotMainImage({ previewImage, name, location, id, onImageUrlChange }) {
 
   return (
     <div className="SpotMainImage">
-      <img src={imageUrl} alt={name} />
-      <h1>{name}</h1>
+      <img src={imageUrl} alt={name} className="mainImage" />
       <p>{location}</p>
+      <h1>{name}</h1>
     </div>
   );
 }

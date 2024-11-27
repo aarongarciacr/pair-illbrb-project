@@ -1,4 +1,4 @@
-// import "./SpotReserveDetails.css";
+import "./SpotReserveDetails.css";
 
 import { useSelector } from "react-redux";
 

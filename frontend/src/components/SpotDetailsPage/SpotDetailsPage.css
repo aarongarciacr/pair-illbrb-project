@@ -1,0 +1,12 @@
+.spot-details-page {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-areas: 
+    'mainImage mainImage additionalImages additionalImages'
+    'host host host reviews'
+    'reviewsDetails reviewsDetails reviewsDetails reviewsDetails';
+    gap: 20px;
+    align-items: flex-start;
+    max-width: 1000px;
+    margin: auto;
+}

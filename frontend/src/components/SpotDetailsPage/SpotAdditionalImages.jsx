@@ -1,4 +1,4 @@
-// import "./SpotAdditionalImages.css";
+import "./SpotAdditionalImages.css";
 
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,7 +15,12 @@ function SpotAdditionalImages() {
     <div className="spot-additional-images">
       {images.map((image) => (
         <div key={image.id} className="additional-image-container">
-          <img src={image.url} alt={`Spot Image ${image.id + 1}`} />
+          <img
+            src={image.url}
+            className="image"
+            id={`image-${image.id}`}
+            alt={`Spot Image ${image.id + 1}`}
+          />
         </div>
       ))}
     </div>
