@@ -379,6 +379,10 @@ router.post(
   validateReview,
   requireSpotExists,
   async (req, res) => {
+    console.log("Received Data:", req.body); // Log incoming data
+    console.log("Spot ID:", req.spot.id);
+    console.log("User ID:", req.user.id);
+
     const { spot, user } = req;
 
     const existingReview = await Review.findOne({
@@ -405,7 +409,7 @@ router.post(
   }
 );
 
-router.get("/:spotId/image", async (req, res) => {
+router.get("/:spotId/prevImage", async (req, res) => {
   const { spotId } = req.params;
   const parseSpotId = parseInt(spotId);
   // Find the spot by ID
@@ -417,15 +421,15 @@ router.get("/:spotId/image", async (req, res) => {
   }
 
   // Use the previewImage field to fetch the corresponding SpotImage
-  const spotImage = await SpotImage.findOne({
-    where: { spotId: spot.previewImage }, // este tiene que ser la comparacion con previewImage y spotId
+  const prevImage = await SpotImage.findOne({
+    where: { id: spot.previewImage }, // este tiene que ser la comparacion con previewImage y spotId
   });
 
-  if (!spotImage) {
+  if (!prevImage) {
     return res.status(404).json({ message: "Preview image not found" });
   }
 
-  return res.status(200).json({ url: spotImage.url });
+  return res.status(200).json({ url: prevImage.url });
 });
 
 //Post an image based on a SpotId
@@ -450,6 +454,7 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
 
   if (!spot.previewImage) {
     await spot.update({ previewImage: spotImage.id });
+    console.log("Updated previewImage:", spot.previewImage);
   }
 
   const response = { id: spotImage.id, url: spotImage.url };
@@ -463,7 +468,7 @@ router.get("/:spotId", async (req, res) => {
   const spotIdNumber = parseInt(spotId);
 
   const spot = await Spot.findByPk(spotIdNumber, {
-    attributes: { exclude: ["previewImage"] },
+    attributes: { exclude: [], include: ["previewImage"] },
     include: [
       { model: SpotImage, attributes: ["id", "url"] },
       {

@@ -5,6 +5,7 @@ const OpenModalButton = ({
   buttonText,
   onButtonClick,
   onModalClose,
+  className,
 }) => {
   const { setModalContent, setOnModalClose } = useModal();
 
@@ -14,7 +15,11 @@ const OpenModalButton = ({
     if (typeof onButtonClick === "function") onButtonClick();
   };
 
-  return <button onClick={onClick}>{buttonText}</button>;
+  return (
+    <button onClick={onClick} className={className}>
+      {buttonText}
+    </button>
+  );
 };
 
 export default OpenModalButton;

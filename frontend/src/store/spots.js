@@ -8,6 +8,7 @@ const GET_ADDITIONAL_IMAGES = "spot/GET_ADDITIONAL_IMAGES";
 const GET_REVIEWS = "spot/GET_REVIEWS";
 const CREATE_SPOT = "spot/SET_CREATE_SPOT";
 const POST_IMAGES = "spotPOST_IMAGES";
+const CREATE_REVIEW = "reviews/CREATE_REVIEW";
 
 // Action Creators
 export const setSpots = (spots) => ({
@@ -48,6 +49,12 @@ export const postImages = (spotId, images) => ({
   images,
 });
 
+const createReview = (spotId, newReview) => ({
+  type: CREATE_REVIEW,
+  spotId,
+  newReview,
+});
+
 //normalized data
 const normalizedSpots = (spotsArray) => {
   return spotsArray.reduce((normalized, spot) => {
@@ -70,12 +77,13 @@ export const fetchSingleSpot = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}`);
   if (response.ok) {
     const spot = await response.json();
+    console.log("spot:", spot);
     dispatch(setSingleSpot(spot));
   }
 };
 
 export const fetchSpotPreviewImage = (spotId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/spots/${spotId}/image`);
+  const response = await csrfFetch(`/api/spots/${spotId}/prevImage`);
   if (response.ok) {
     const image = await response.json();
     console.log("image,", image);
@@ -134,6 +142,25 @@ export const fetchPostImages = (spotId, images) => async (dispatch) => {
   }
 };
 
+export const fetchCreateReview = (spotId, review) => async (dispatch) => {
+  console.log("Request URL:", `/api/spots/${spotId}/reviews`);
+  console.log("Request Body:", review);
+  console.log("spotId:", spotId); // Ensure this logs a valid spotId
+
+  const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(review),
+  });
+  if (response.ok) {
+    const newReview = await response.json();
+    dispatch(createReview(spotId, newReview));
+    return newReview;
+  }
+};
+
 // Reducer
 const spotsReducer = (state = {}, action) => {
   switch (action.type) {
@@ -183,6 +210,16 @@ const spotsReducer = (state = {}, action) => {
 
       if (updatedSpot.id === spotId) {
         updatedSpot.SpotImages = images;
+      }
+
+      return { ...state, singleSpot: updatedSpot };
+    }
+    case CREATE_REVIEW: {
+      const { spotId, newReview } = action;
+      const updatedSpot = { ...state.singleSpot };
+
+      if (updatedSpot.id === spotId) {
+        updatedSpot.reviews = [...updatedSpot.reviews, newReview];
       }
 
       return { ...state, singleSpot: updatedSpot };

@@ -35,7 +35,7 @@ module.exports = {
         name: "Spot 2",
         description: "Place where web developers are exploded",
         price: 555,
-        previewImage: 2,
+        previewImage: 5,
       },
       {
         ownerId: 1,
@@ -48,7 +48,7 @@ module.exports = {
         name: "Mars",
         description: "BIP BIP BOP BOP",
         price: 515.65,
-        previewImage: 3,
+        previewImage: 6,
       },
       {
         ownerId: 3,
@@ -61,7 +61,7 @@ module.exports = {
         name: "Desert Oasis",
         description: "A tranquil escape in the desert.",
         price: 200,
-        previewImage: 4,
+        previewImage: 7,
       },
       {
         ownerId: 2,
@@ -74,7 +74,7 @@ module.exports = {
         name: "Beachfront Paradise",
         description: "Enjoy the beach at your doorstep.",
         price: 600,
-        previewImage: 5,
+        previewImage: 8,
       },
       {
         ownerId: 1,
@@ -87,7 +87,7 @@ module.exports = {
         name: "Big Apple Loft",
         description: "Live the NYC experience in style.",
         price: 800,
-        previewImage: 6,
+        previewImage: 9,
       },
       {
         ownerId: 3,
@@ -100,7 +100,7 @@ module.exports = {
         name: "Nature's Retreat",
         description: "Surrounded by trees and tranquility.",
         price: 150,
-        previewImage: 7,
+        previewImage: 10,
       },
       {
         ownerId: 2,
@@ -113,7 +113,7 @@ module.exports = {
         name: "Tech Hub Haven",
         description: "Modern home in the heart of innovation.",
         price: 700,
-        previewImage: 8,
+        previewImage: 11,
       },
       {
         ownerId: 1,
@@ -126,7 +126,7 @@ module.exports = {
         name: "Mountain Chalet",
         description: "Cozy up in this snowy mountain retreat.",
         price: 450,
-        previewImage: 9,
+        previewImage: 12,
       },
       {
         ownerId: 3,
@@ -139,7 +139,7 @@ module.exports = {
         name: "Historic Charm",
         description: "Experience history with modern comforts.",
         price: 300,
-        previewImage: 10,
+        previewImage: 13,
       },
     ]);
   },

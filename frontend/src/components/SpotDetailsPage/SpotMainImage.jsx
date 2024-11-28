@@ -6,7 +6,6 @@ import { fetchSpotPreviewImage } from "../../store/spots";
 function SpotMainImage({ previewImage, name, location, id, onImageUrlChange }) {
   const dispatch = useDispatch();
   const spot = useSelector((state) => state.spots.singleSpot);
-  console.log("spot: ", spot);
   const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
