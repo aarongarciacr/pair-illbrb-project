@@ -47,11 +47,11 @@ module.exports = {
         },
         lat: {
           type: Sequelize.NUMERIC(9, 6),
-          allowNull: false,
+          allowNull: true,
         },
         lng: {
           type: Sequelize.NUMERIC(9, 6),
-          allowNull: false,
+          allowNull: true,
         },
         name: {
           type: Sequelize.STRING(50),

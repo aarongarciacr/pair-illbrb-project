@@ -1,106 +1,167 @@
-.nav.flex-layout {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    height: 7.5em;
+/* General Reset */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
 }
 
-.nav.grid-layout {
-    display: grid;
-    grid-template-columns: 8fr 1fr 1fr;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-
-    gap: 10px;
-}
-
+/* Navigation Bar */
 .nav-box {
+  margin: 0;
   display: flex;
   justify-content: space-around;
   gap: 50%;
   padding: 0 40px;
+  height: fit-content;
+}
+
+.nav.flex-layout {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
   height: 7.5em;
 }
 
-
-.logged-navlinks {
-    display: flex;
-    flex-direction: row;
-    gap: 15px;
+.nav.grid-layout {
+  display: grid;
+  grid-template-columns: 8fr 1fr 1fr;
+  gap: 10px;
 }
 
+/* Home Link */
+#home-link-container {
+  text-align: start;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+  transform-origin: left;
+  min-width: fit-content;
+}
+
+.home-link {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#home-link {
+  height: fit-content;
+}
+
+.logo {
+  max-width: 80px;
+}
+
+.illBRB {
+  font-weight: bold;
+  font-size: 30px;
+  text-align: center;
+  margin: auto;
+  padding-top: 10px;
+}
+
+/* Create Spot */
+.createSpot {
+  text-decoration: none;
+  grid-area: createSpot;
+  text-align: left;
+  align-self: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: flex-start;
+  height: 100%;
+  position: relative;
+
+}
+#createSpotText {
+  margin: 0;
+  color: rgb(61, 61, 212);
+
+}
+
+/* Profile Box */
+.profile-box {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  grid-template-rows: auto auto;
+  grid-template-areas: 
+    "createSpot profileButton"
+    ". dropdown";
+  align-items: center;
+  gap: 10px;
+  width: fit-content;
+  margin-top: 15px;
+}
+
+/* Profile Button */
 .profile-button {
-    min-width: fit-content;
-    width: 50%;
-    /* width: 50%; */
-    height: 2.6em;
-    margin: 0;
-    /* align-self: flex-start; */
-    /* margin-bottom: 23%; */
-    border: 0;
-    border-radius: 12px;
-    background: linear-gradient(to bottom right, #FE375B, #D70566);
-    color: #FFFFFF;
-    cursor: pointer;
-    display: flex;
-    justify-content: right; 
-    outline: transparent;
-    padding: 0 1rem;
-    transition: box-shadow .2s ease-in-out;
-    user-select: none;
-    -webkit-user-select: none;
-    touch-action: manipulation;
-    white-space: nowrap;
+  grid-area: profileButton;
+  justify-self: end;
+  min-width: fit-content;
+  width: 50%;
+  height: 2.6em;
+  margin: auto;
+  align-items: center;
+  border: 0;
+  border-radius: 12px;
+  background: linear-gradient(to bottom right, #FE375B, #D70566);
+  color: #FFFFFF;
+  cursor: pointer;
+  display: flex;
+  outline: transparent;
+  padding: 0 1rem;
+  transition: box-shadow 0.2s ease-in-out;
+  user-select: none;
+  white-space: nowrap;
 }
 
 .profile-button:not([disabled]):focus {
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+    -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+    0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
 }
 
 .profile-button:not([disabled]):hover {
-  box-shadow: 0 0 .25rem rgba(0, 0, 0, 0.5), -.125rem -.125rem 1rem rgba(239, 71, 101, 0.5), .125rem .125rem 1rem rgba(255, 154, 90, 0.5);
+  box-shadow: 0 0 0.25rem rgba(0, 0, 0, 0.5),
+    -0.125rem -0.125rem 1rem rgba(239, 71, 101, 0.5),
+    0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
 }
 
-ul {
-   list-style-type: none;   
-}
-
+/* Profile Dropdown */
 .profile-dropdown {
-    text-align: end;
-    padding: 0;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity 200ms ease, visibility 200ms ease;
+  grid-area: dropdown;
+  text-align: right;
+  align-self: start;
+  padding: 5px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 200ms ease, visibility 200ms ease;
 }
 
 .profile-dropdown.shown {
   visibility: visible;
   opacity: 1;
   margin-top: 5px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
 }
+
 .profile-dropdown.hidden {
   visibility: hidden;
   opacity: 0;
 }
 
-.profile-box {
-  width: 200px;
-  display: flex;
-  flex-direction: column;
-  align-items: end;
-  height: max-content;
+/* Buttons and Links */
+#login-link,
+#signup-link {
+  text-align: center;
+  transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 #login-link:hover,
-#signup-link:hover {
+#signup-link:hover,
+#home-link:hover {
   transform: scale(0.9);
-  transition: all 200ms;
+  opacity: 0.75;
   cursor: pointer;
-
-}
-
-#home-link {
-  height: fit-content;
 }
 
 #logout {
@@ -112,19 +173,17 @@ ul {
   color: #FFFFFF;
   cursor: pointer;
   display: inline-block;
-  font-family: nunito,roboto,proxima-nova,"proxima nova",sans-serif;
+  font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
   font-size: 13px;
   font-weight: 800;
   line-height: 16px;
   height: 30px;
   outline: 0;
   padding: 0 10px;
-  /* padding: 12px; */
   text-align: center;
   text-rendering: geometricprecision;
   text-transform: none;
   user-select: none;
-  -webkit-user-select: none;
   touch-action: manipulation;
   vertical-align: middle;
 }
@@ -137,30 +196,10 @@ ul {
 }
 
 #logout:active {
-  opacity: .5;
+  opacity: 0.5;
 }
 
-a {
-    text-decoration: none;
-    color: black;
-} 
-
-#login-link,
-#signup-link {
-    text-align: center;
-    transition: transform 0.2s ease, opacity 0.2s ease; /* Smooth transition for hover effects */
+/* General List Styling */
+ul {
+  list-style-type: none;
 }
-
-#home-link {
-    text-align: start;
-    transition: transform 0.2s ease, opacity 0.2s ease; /* Smooth transition for hover effects */
-    transform-origin: left;
-}
-
-#login-link:hover,
-#signup-link:hover,
-#home-link:hover {
-    transform: scale(.9);
-    opacity: .75;
-}
-

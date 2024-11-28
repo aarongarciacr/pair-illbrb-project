@@ -22,7 +22,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       url: {
         type: DataTypes.TEXT,
-        allowNull: false,
+        allowNull: true,
         validate: {
           isUrl: true,
         },

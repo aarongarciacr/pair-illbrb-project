@@ -432,7 +432,7 @@ router.get("/:spotId/image", async (req, res) => {
 router.post("/:spotId/images", requireAuth, async (req, res) => {
   const { spotId } = req.params;
   const spotIdNumber = parseInt(spotId);
-  const { url, preview } = req.body;
+  const { url } = req.body;
   const userId = parseInt(req.user.id);
   const spot = await Spot.findByPk(spotIdNumber);
   if (!spot) {
@@ -447,11 +447,12 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
     spotId: spotIdNumber,
     url,
   });
-  if (preview) {
-    spot.set("previewImage", spotImage.id);
-    await spot.save();
+
+  if (!spot.previewImage) {
+    await spot.update({ previewImage: spotImage.id });
   }
-  const response = { id: spotImage.id, url: spotImage.url, preview };
+
+  const response = { id: spotImage.id, url: spotImage.url };
 
   return res.status(201).json(response);
 });
@@ -504,14 +505,14 @@ const validateSpot = [
   check("description").notEmpty().withMessage("Description is required"),
   check("country").notEmpty().withMessage("Country is required"),
   check("state").notEmpty().withMessage("State is required"),
-  check("lat")
-    .isFloat({ min: -90, max: 90 })
-    .withMessage("Latitude must be within -90 and 90")
-    .toFloat(),
-  check("lng")
-    .isFloat({ min: -180, max: 180 })
-    .withMessage("Longitude must be within -180 and 180")
-    .toFloat(),
+  // check("lat")
+  //   .isFloat({ min: -90, max: 90 })
+  //   .withMessage("Latitude must be within -90 and 90")
+  //   .toFloat(),
+  // check("lng")
+  //   .isFloat({ min: -180, max: 180 })
+  //   .withMessage("Longitude must be within -180 and 180")
+  //   .toFloat(),
   check("name")
     .notEmpty()
     .isLength({ max: 49 })

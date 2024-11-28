@@ -6,6 +6,8 @@ const SET_SINGLE_SPOT = "spot/SET_SINGLE_SPOT";
 const GET_SPOT_IMAGE_PREVIEW = "spot/GET_SPOT_IMAGE_PREVIEW";
 const GET_ADDITIONAL_IMAGES = "spot/GET_ADDITIONAL_IMAGES";
 const GET_REVIEWS = "spot/GET_REVIEWS";
+const CREATE_SPOT = "spot/SET_CREATE_SPOT";
+const POST_IMAGES = "spotPOST_IMAGES";
 
 // Action Creators
 export const setSpots = (spots) => ({
@@ -33,6 +35,17 @@ export const getReviews = (spotId, reviews) => ({
   type: GET_REVIEWS,
   spotId,
   reviews,
+});
+
+export const createSpot = (newSpot) => ({
+  type: CREATE_SPOT,
+  newSpot,
+});
+
+export const postImages = (spotId, images) => ({
+  type: POST_IMAGES,
+  spotId,
+  images,
 });
 
 //normalized data
@@ -65,6 +78,7 @@ export const fetchSpotPreviewImage = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}/image`);
   if (response.ok) {
     const image = await response.json();
+    console.log("image,", image);
     dispatch(getSpotImagePreview(image));
     return image;
   }
@@ -73,7 +87,7 @@ export const fetchSpotPreviewImage = (spotId) => async (dispatch) => {
 export const fetchSpotImages = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}/`);
   if (response.ok) {
-    const spot = response.json();
+    const spot = await response.json();
 
     const images = spot.SpotImages;
     dispatch(getAdditionalImages(images));
@@ -90,6 +104,36 @@ export const fetchReviews = (spotId) => async (dispatch) => {
   }
 };
 
+export const fetchCreateSpot = (newSpot) => async (dispatch) => {
+  const response = await csrfFetch("/api/spots", {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newSpot),
+  });
+  if (response.ok) {
+    const spot = await response.json();
+    dispatch(createSpot(spot));
+    return spot;
+  }
+};
+
+export const fetchPostImages = (spotId, images) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}/images`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(images),
+  });
+  if (response.ok) {
+    const images = await response.json();
+    dispatch(postImages(spotId, images));
+    return images;
+  }
+};
+
 // Reducer
 const spotsReducer = (state = {}, action) => {
   switch (action.type) {
@@ -97,7 +141,10 @@ const spotsReducer = (state = {}, action) => {
       return { ...state, allSpots: action.spots };
     }
     case SET_SINGLE_SPOT: {
-      return { ...state, singleSpot: action.spot };
+      return {
+        ...state,
+        singleSpot: { ...action.spot, previewImage: action.spot.previewImage },
+      };
     }
     case GET_SPOT_IMAGE_PREVIEW: {
       const { spotId, previewImage } = action;
@@ -119,6 +166,26 @@ const spotsReducer = (state = {}, action) => {
         };
       }
       return state;
+    }
+    case CREATE_SPOT: {
+      const { newSpot } = action;
+      return {
+        ...state,
+        allSpots: {
+          ...state.allSpots,
+          [newSpot.id]: newSpot,
+        },
+      };
+    }
+    case POST_IMAGES: {
+      const { spotId, images } = action;
+      const updatedSpot = { ...state.singleSpot };
+
+      if (updatedSpot.id === spotId) {
+        updatedSpot.SpotImages = images;
+      }
+
+      return { ...state, singleSpot: updatedSpot };
     }
     default:
       return state;

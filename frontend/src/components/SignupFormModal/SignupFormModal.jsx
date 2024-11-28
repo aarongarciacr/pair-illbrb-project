@@ -4,7 +4,7 @@ import * as sessionActions from "../../store/session";
 import { useModal } from "../../context/Modal";
 import "./SignupForm.css";
 
-const SignupFormModal = () => {
+const SignupFormModal = ({ navigate }) => {
   const dispatch = useDispatch();
   const [username, setUsername] = useState("");
   const [firstName, setFirstName] = useState("");
@@ -28,7 +28,7 @@ const SignupFormModal = () => {
           password,
         })
       )
-        .then(closeModal)
+        .then(closeModal, navigate("/"))
         .catch(async (res) => {
           const data = await res.json();
           if (data?.errors) {

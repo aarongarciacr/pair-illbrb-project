@@ -7,7 +7,6 @@ import { fetchSpotPreviewImage } from "../../../store/spots";
 function SpotCard({ id, previewImage, city, state, price, avgRating, name }) {
   const dispatch = useDispatch();
   const [imageUrl, setImageUrl] = useState(previewImage);
-
   useEffect(() => {
     async function getPreviewImage() {
       const response = await dispatch(fetchSpotPreviewImage(id));

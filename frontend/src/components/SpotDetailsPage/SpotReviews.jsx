@@ -1,3 +1,5 @@
+import { useState } from "react";
+import PostReview from "./PostReview";
 import "./SpotReviews.css";
 
 import { useSelector } from "react-redux";
@@ -5,6 +7,7 @@ import { useSelector } from "react-redux";
 function SpotReviews({ reviews, isLoggedIn }) {
   const spot = useSelector((state) => state.spots.singleSpot);
   const sessionUser = useSelector((state) => state.session.user);
+  const [reviewBox, setReviewBox] = useState(false);
 
   const isOwner = sessionUser?.id === spot?.Owner?.id;
 
@@ -17,8 +20,14 @@ function SpotReviews({ reviews, isLoggedIn }) {
       </h2>
 
       {isLoggedIn && !isOwner && (
-        <button className="post-review-button">Post Your Review</button>
+        <button
+          className="post-review-button"
+          onClick={() => setReviewBox(!reviewBox)}
+        >
+          Post Your Review
+        </button>
       )}
+      {reviewBox && <PostReview />}
 
       <div className="reviews-list">
         {reviews.map((review) => (

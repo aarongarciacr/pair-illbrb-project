@@ -39,7 +39,7 @@ module.exports = (sequelize, DataTypes) => {
         ],
         attributes: {
           include: [
-            [fn("ROUND", fn("AVG", col("Reviews.stars")), 2), fieldName],
+            [fn("ROUND", fn("AVG", col("Reviews.stars")), 1), fieldName],
           ],
         },
         group: ["Spot.id"],
@@ -74,7 +74,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       lat: {
         type: DataTypes.DECIMAL(9, 6),
-        allowNull: false,
+        allowNull: true,
         validate: {
           min: -90,
           max: 90,
@@ -85,7 +85,7 @@ module.exports = (sequelize, DataTypes) => {
       },
       lng: {
         type: DataTypes.DECIMAL(9, 6),
-        allowNull: false,
+        allowNull: true,
         validate: {
           min: -180,
           max: 180,

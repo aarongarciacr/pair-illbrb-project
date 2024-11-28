@@ -1,0 +1,147 @@
+main {
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    align-items: center;
+}
+.container {
+    width: 70%;
+    text-align: center;
+    border-top: 1px solid gray;
+    margin: auto;
+    margin-top: 2rem;
+}
+
+.locationInfoContainer {
+    display: grid;
+    grid-template-columns: 1fr;
+    margin: auto;
+}
+
+.input-pair {
+    display: grid;
+    grid-template-columns: 1fr 1fr; 
+    gap: 1rem; 
+  }
+
+  label {
+    font-weight: bold;
+    margin-top: 0.5rem;
+    margin-bottom: 0.5rem;
+    display: block;
+  }
+  
+  input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+
+  #city, #latitude {
+    width: 97%;
+  }
+
+
+  #description {
+    width: 102%;
+    height: 150px;
+    min-width: 102%;
+    max-width: 102%;
+    min-height: 50px;
+  }
+
+  textarea::placeholder {
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+  }
+
+  .input-container {
+    position: relative;
+  }
+  
+  .currency-symbol {
+    position: absolute;
+    top: 51%;
+    left: 10px; 
+    transform: translateY(-50%);
+    font-size: 1rem;
+    color: #666;
+    pointer-events: none;
+  }
+  
+  .input-container input {
+    width: 100%;
+    padding: 0.5rem 0.5rem 0.5rem 1.5rem; 
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .createSpotBtn {
+    margin: auto;
+    margin-top: 25px;
+    margin-bottom: 100px;
+    align-items: center;
+    background-color: #FF5A5F;
+    border: 2px solid #111;
+    border-radius: 8px;
+    box-sizing: border-box;
+    color: #111;
+    cursor: pointer;
+    display: flex;
+    font-family: Inter,sans-serif;
+    font-size: 16px;
+    height: 35px;
+    justify-content: center;
+    line-height: 24px;
+    max-width: 100%;
+    padding: 0 25px;
+    position: relative;
+    text-align: center;
+    text-decoration: none;
+    user-select: none;
+    -webkit-user-select: none;
+    touch-action: manipulation;
+  }
+  
+  .createSpotBtn:after {
+    background-color: #111;
+    border-radius: 8px;
+    content: "";
+    display: block;
+    height: 35px;
+    left: -1px;
+    width: 100%;
+    position: absolute;
+    top: -5px;
+    transform: translate(8px, 8px);
+    transition: transform .2s ease-out;
+    z-index: -1;
+  }
+  
+  .createSpotBtn:hover:after {
+    transform: translate(2px, 3px);
+  }
+  
+  .createSpotBtn:active {
+    background-color: #ffdeda;
+    outline: 0;
+  }
+  
+  .createSpotBtn:hover {
+    outline: 0;
+  }
+  
+  @media (min-width: 768px) {
+    .createSpotBtn {
+      padding: 0 40px;
+    }
+  }
+
+  .error {
+    color: red;
+    font-weight: normal;
+    text-align: left;
+    margin: 0;
+  }

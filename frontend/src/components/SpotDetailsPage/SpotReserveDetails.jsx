@@ -11,9 +11,9 @@ function SpotReserveDetails() {
   return (
     <div className="spot-reserve-details">
       <p>
-        <span className="price">${spot.price.toFixed(2)} night</span>
+        <span className="price">${spot.price} night</span>
         <span className="rating">
-          ⭐ {spot.avgStarRating.toFixed(1) || "No Rating Yet"}
+          ⭐ {spot.avgStarRating || "No Rating Yet"}
         </span>
         <span className="reviews">· {spot.numReviews} reviews</span>
       </p>

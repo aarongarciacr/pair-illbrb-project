@@ -1,35 +1,52 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import "./LoginForm.css";
 import { useModal } from "../../context/Modal";
 
-const LoginFormModal = () => {
+const LoginFormModal = ({ navigate }) => {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [isDisable, setIsDisable] = useState(true);
   const { closeModal } = useModal();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     setErrors({});
-    return dispatch(sessionActions.login({ credential, password }))
-      .then(closeModal)
-      .catch(async (res) => {
-        const data = await res.json();
-        if (data?.errors) {
-          setErrors(data.errors);
-        }
-      });
+
+    try {
+      await dispatch(sessionActions.login({ credential, password }));
+      closeModal();
+      navigate("/");
+    } catch (res) {
+      const data = await res.json();
+      if (data?.errors) {
+        setErrors(data.errors);
+      }
+    }
+
+    // return dispatch(sessionActions.login({ credential, password }))
+    //   .then(closeModal, navigate("/"))
+    //   .catch(async (res) => {
+    //     const data = await res.json();
+    //     if (data?.errors) {
+    //       setErrors(data.errors);
+    //     }
+    //   });
   };
+
+  useEffect(() => {
+    setIsDisable(!(credential.length >= 4 && password.length >= 6));
+  }, [credential, password]);
+
   return (
     <div className="login-box">
       <h1>Log In</h1>
+      <br />
       <form onSubmit={handleSubmit} className="login-form">
         <label htmlFor="credential" className="label">
-          Credential:
-          <br></br>
           <input
             type="text"
             id="credential-input"
@@ -44,10 +61,8 @@ const LoginFormModal = () => {
         <br></br>
 
         <label htmlFor="password" className="label">
-          Password:
-          <br></br>
           <input
-            type="text"
+            type="password"
             id="password-input"
             name="password"
             placeholder="Insert password"
@@ -57,11 +72,17 @@ const LoginFormModal = () => {
           />
         </label>
 
-        {errors.message && <p>{errors.message}</p>}
+        {errors.message && (
+          <p className="invalidCredentials">{errors.message}</p>
+        )}
         <br></br>
         <br></br>
-        {/* <button type="submit">Log In</button> */}
-        <button className="button-75" role="button" type="submit">
+        <button
+          className={isDisable ? "disable-button" : "enabled-button"}
+          role="button"
+          type="submit"
+          disabled={isDisable}
+        >
           <span className="text">Log In</span>
         </button>
       </form>

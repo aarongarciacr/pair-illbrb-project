@@ -1,11 +1,13 @@
 import "./SpotMainImage.css";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useState, useEffect } from "react";
 import { fetchSpotPreviewImage } from "../../store/spots";
 
 function SpotMainImage({ previewImage, name, location, id, onImageUrlChange }) {
   const dispatch = useDispatch();
-  const [imageUrl, setImageUrl] = useState(previewImage);
+  const spot = useSelector((state) => state.spots.singleSpot);
+  console.log("spot: ", spot);
+  const [imageUrl, setImageUrl] = useState("");
 
   useEffect(() => {
     async function getPreviewImage() {
