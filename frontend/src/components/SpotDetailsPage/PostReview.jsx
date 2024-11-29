@@ -3,7 +3,11 @@ import { useDispatch } from "react-redux";
 import "./PostReview.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
-import { fetchCreateReview, fetchSingleSpot } from "../../store/spots";
+import {
+  fetchCreateReview,
+  fetchReviews,
+  fetchSingleSpot,
+} from "../../store/spots";
 import { useModal } from "../../context/Modal";
 
 const PostReview = ({ spotId }) => {
@@ -30,6 +34,7 @@ const PostReview = ({ spotId }) => {
     try {
       await dispatch(fetchCreateReview(spotId, newReview));
       await dispatch(fetchSingleSpot(spotId));
+      await dispatch(fetchReviews(spotId));
       closeModal();
     } catch (res) {
       const data = await res.json();

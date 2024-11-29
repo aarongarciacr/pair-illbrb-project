@@ -1,3 +1,4 @@
+import { act } from "react";
 import { csrfFetch } from "./csrf";
 
 // Action Types
@@ -9,6 +10,8 @@ const GET_REVIEWS = "spot/GET_REVIEWS";
 const CREATE_SPOT = "spot/SET_CREATE_SPOT";
 const POST_IMAGES = "spotPOST_IMAGES";
 const CREATE_REVIEW = "reviews/CREATE_REVIEW";
+const UPDATE_SPOT = "spot/UPDATE_SPOT";
+const DELETE_SPOT = "spot/DELETE_SPOT";
 
 // Action Creators
 export const setSpots = (spots) => ({
@@ -53,6 +56,17 @@ const createReview = (spotId, newReview) => ({
   type: CREATE_REVIEW,
   spotId,
   newReview,
+});
+
+const updateSpot = (spotId, updatedSpot) => ({
+  type: UPDATE_SPOT,
+  spotId,
+  updatedSpot,
+});
+
+const deleteSpot = (spotId) => ({
+  type: DELETE_SPOT,
+  spotId,
 });
 
 //normalized data
@@ -143,10 +157,6 @@ export const fetchPostImages = (spotId, images) => async (dispatch) => {
 };
 
 export const fetchCreateReview = (spotId, review) => async (dispatch) => {
-  console.log("Request URL:", `/api/spots/${spotId}/reviews`);
-  console.log("Request Body:", review);
-  console.log("spotId:", spotId); // Ensure this logs a valid spotId
-
   const response = await csrfFetch(`/api/spots/${spotId}/reviews`, {
     method: "POST",
     headers: {
@@ -158,6 +168,27 @@ export const fetchCreateReview = (spotId, review) => async (dispatch) => {
     const newReview = await response.json();
     dispatch(createReview(spotId, newReview));
     return newReview;
+  }
+};
+
+export const fetchUpdateSpot = (spotId, updatedSpot) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "PUT",
+    body: JSON.stringify(updatedSpot),
+  });
+  if (response.ok) {
+    const spot = await response.json();
+    dispatch(updateSpot(spotId, spot));
+    return spot;
+  }
+};
+
+export const fetchDeleteSpot = (spotId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}`, {
+    method: "DELETE",
+  });
+  if (response.ok) {
+    dispatch(deleteSpot(spotId));
   }
 };
 
@@ -223,6 +254,26 @@ const spotsReducer = (state = {}, action) => {
       }
 
       return { ...state, singleSpot: updatedSpot };
+    }
+    case UPDATE_SPOT: {
+      const { spotId, spot } = action;
+      return {
+        ...state,
+        allSpots: {
+          ...state.allSpots,
+          [spotId]: spot,
+        },
+        singleSpot: state.singleSpot?.id === spotId ? spot : state.singleSpot,
+      };
+    }
+    case DELETE_SPOT: {
+      const newState = { ...state, allSpots: { ...state.all } };
+      delete newState.allSpots[action.spotId];
+
+      if (state.singleSpot?.id === action.spotId) {
+        newState.singleSpot = null;
+      }
+      return newState;
     }
     default:
       return state;

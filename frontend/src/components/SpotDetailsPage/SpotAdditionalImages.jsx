@@ -3,9 +3,10 @@ import "./SpotAdditionalImages.css";
 import { useSelector } from "react-redux";
 
 function SpotAdditionalImages() {
-  const spot = useSelector((state) => state.spots.singleSpot);
-  const addImages = spot.SpotImages.slice(1);
-
+  const spot = useSelector((state) => state.spots?.singleSpot);
+  const addImages = Array.isArray(spot?.SpotImages)
+    ? spot.SpotImages.slice(1)
+    : [];
   return (
     <div className="spot-additional-images">
       {addImages.map((image) => (

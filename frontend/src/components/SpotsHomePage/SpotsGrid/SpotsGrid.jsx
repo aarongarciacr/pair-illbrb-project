@@ -7,21 +7,21 @@ import "./SpotsGrid.css";
 function SpotsGrid() {
   const dispatch = useDispatch();
   const spots = useSelector((state) =>
-    Object.values(state.spots.allSpots || {})
+    Object.values(state.spots?.allSpots || {})
   );
 
   useEffect(() => {
     dispatch(fetchSpots());
   }, [dispatch]);
 
-  if (!spots || spots.length === 0) {
+  if (!spots || spots?.length === 0) {
     return <p>No spots available</p>;
   }
 
   return (
     <div className="spots-grid">
       {spots.map((spot) => (
-        <SpotCard key={spot.id} {...spot} />
+        <SpotCard key={spot?.id} {...spot} />
       ))}
     </div>
   );

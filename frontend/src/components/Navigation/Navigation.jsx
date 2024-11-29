@@ -9,15 +9,13 @@ function Navigation({ isLoaded }) {
 
   const showCreateSpot = !!sessionUser;
 
-  console.log(showCreateSpot);
-  console.log(isLoaded);
   return (
     <ul className="nav-box">
       <li id="home-link-container">
         <Link to="/" className="home-link">
           <img src={Logo} className="logo"></img>
 
-          <p className="illBRB">I'll BRB</p>
+          <p className="illBRB">I&apos;ll BRB</p>
         </Link>
       </li>
       {isLoaded && (

@@ -1,13 +1,13 @@
-import { useState } from "react";
 import PostReview from "./PostReview";
 import "./SpotReviews.css";
 
 import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 
-function SpotReviews({ reviews, isLoggedIn }) {
+function SpotReviews({ isLoggedIn }) {
   const spot = useSelector((state) => state.spots.singleSpot);
   const sessionUser = useSelector((state) => state.session.user);
+  const reviews = spot?.reviews || [];
 
   const isOwner = sessionUser?.id === spot?.Owner?.id;
   const reviewedByUser = spot?.reviews?.some(
