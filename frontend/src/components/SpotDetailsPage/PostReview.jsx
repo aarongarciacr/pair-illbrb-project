@@ -11,7 +11,7 @@ import {
 import { useModal } from "../../context/Modal";
 
 const PostReview = ({ spotId }) => {
-  const [stars, setStars] = useState(0); // Rename rating to stars
+  const [stars, setStars] = useState(0);
   const [review, setReview] = useState("");
   const [errors, setErrors] = useState({});
   const [isDisable, setIsDisable] = useState(true);
@@ -45,8 +45,8 @@ const PostReview = ({ spotId }) => {
   };
 
   useEffect(() => {
-    setIsDisable(!(review.length >= 10));
-  }, [review]);
+    setIsDisable(!(review.length > 10 && stars > 1));
+  }, [review, stars]);
 
   return (
     <div className="postReviewBox">

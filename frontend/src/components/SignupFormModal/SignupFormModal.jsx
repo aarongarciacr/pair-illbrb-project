@@ -1,5 +1,5 @@
 import { useDispatch } from "react-redux";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import * as sessionActions from "../../store/session";
 import { useModal } from "../../context/Modal";
 import "./SignupForm.css";
@@ -13,13 +13,24 @@ const SignupFormModal = ({ navigate }) => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
   const [errors, setErrors] = useState({});
+  const [isDisable, setIsDisable] = useState(true);
+
   const { closeModal } = useModal();
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (password === confirmPassword) {
-      setErrors({});
-      return dispatch(
+    setErrors({});
+
+    if (password !== confirmPassword) {
+      setErrors({
+        confirmPassword:
+          "Confirm Password field must be the same as the Password field.",
+      });
+      return;
+    }
+
+    try {
+      await dispatch(
         sessionActions.signup({
           email,
           username,
@@ -27,27 +38,36 @@ const SignupFormModal = ({ navigate }) => {
           lastName,
           password,
         })
-      )
-        .then(closeModal, navigate("/"))
-        .catch(async (res) => {
-          const data = await res.json();
-          if (data?.errors) {
-            setErrors(data.errors);
-          }
-        });
+      );
+
+      closeModal();
+      navigate("/");
+    } catch (res) {
+      const data = await res.json();
+      if (data?.errors) {
+        setErrors(data.errors);
+      }
     }
-    return setErrors({
-      confirmPassword:
-        "Confirm Password field must be the same as the Password field",
-    });
   };
+
+  useEffect(() => {
+    const isFormValid =
+      username.trim() &&
+      firstName.trim() &&
+      lastName.trim() &&
+      email.trim() &&
+      password &&
+      confirmPassword &&
+      password === confirmPassword;
+
+    setIsDisable(!isFormValid);
+  }, [username, firstName, lastName, email, password, confirmPassword]);
 
   return (
     <div className="signup-box">
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit} className="signup-form">
         <label htmlFor="firstName" id="firstName">
-          First name:
           <input
             type="text"
             name="firstName"
@@ -57,9 +77,12 @@ const SignupFormModal = ({ navigate }) => {
             required
           />
         </label>
-        {errors.firstName && <p>{errors.firstName}</p>}
+        {errors.firstName && (
+          <p className="error firstname-error">
+            First Name must be between 2 and 30 characters.
+          </p>
+        )}
         <label htmlFor="lastName" id="lastName">
-          Last name:
           <input
             type="text"
             name="lastName"
@@ -69,9 +92,12 @@ const SignupFormModal = ({ navigate }) => {
             required
           />
         </label>
-        {errors.lastName && <p>{errors.lastName}</p>}
+        {errors.lastName && (
+          <p className="error lastname-error">
+            Last Name must be between 2 and 30 characters.
+          </p>
+        )}
         <label htmlFor="username" id="username">
-          Username:
           <input
             type="text"
             name="username"
@@ -81,11 +107,12 @@ const SignupFormModal = ({ navigate }) => {
             required
           />
         </label>
-        {errors.username && <p>{errors.username}</p>}
+        {errors.username && (
+          <p className="error username-error">{errors.username}</p>
+        )}
         <label htmlFor="email" id="email">
-          Email:
           <input
-            type="text"
+            type="email"
             name="email"
             placeholder="Insert your email"
             value={email}
@@ -93,11 +120,10 @@ const SignupFormModal = ({ navigate }) => {
             required
           />
         </label>
-        {errors.email && <p>{errors.email}</p>}
+        {errors.email && <p className="error email-error">{errors.email}</p>}
         <label htmlFor="password" id="password">
-          Password:
           <input
-            type="text"
+            type="password"
             name="password"
             placeholder="Insert a password"
             value={password}
@@ -105,11 +131,12 @@ const SignupFormModal = ({ navigate }) => {
             required
           />
         </label>
-        {errors.password && <p>{errors.password}</p>}
+        {errors.password && (
+          <p className="error password-error">{errors.password}</p>
+        )}
         <label htmlFor="confirm-password" id="confirm-password">
-          Confirm password:
           <input
-            type="text"
+            type="password"
             name="confirm-password"
             placeholder="Confirm password"
             value={confirmPassword}
@@ -117,9 +144,19 @@ const SignupFormModal = ({ navigate }) => {
             required
           />
         </label>
-        {errors.confirmPassword && <p>{errors.confirmPassword}</p>}
+        {errors.confirmPassword && (
+          <p className="error passwordConfirm-error">
+            {errors.confirmPassword}
+          </p>
+        )}
 
-        <button className="button-75-signup" role="button" type="submit">
+        <button
+          className={isDisable ? "disable-button" : "enabled-button"}
+          id="signup-btn"
+          disabled={isDisable}
+          role="button"
+          type="submit"
+        >
           <span className="text">Sign Up</span>
         </button>
       </form>

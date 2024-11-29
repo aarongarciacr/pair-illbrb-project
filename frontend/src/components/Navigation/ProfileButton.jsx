@@ -38,6 +38,7 @@ function ProfileButton({ user }) {
     e.preventDefault();
     dispatch(sessionActions.logout());
     closeMenu();
+    navigate("/");
   };
 
   const ulClassName = "profile-dropdown" + (showMenu ? " shown" : " hidden");
@@ -63,6 +64,9 @@ function ProfileButton({ user }) {
             <li id="email">{user.email}</li>
             <Link to="/spots/current" id="manage-spots">
               Manage Spots
+            </Link>
+            <Link to="/reviews/current" id="manage-reviews">
+              Manage Reviews
             </Link>
             <li>
               <button id="logout" onClick={logout}>

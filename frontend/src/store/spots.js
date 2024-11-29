@@ -1,4 +1,3 @@
-import { act } from "react";
 import { csrfFetch } from "./csrf";
 
 // Action Types

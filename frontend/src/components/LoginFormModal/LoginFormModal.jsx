@@ -26,15 +26,6 @@ const LoginFormModal = ({ navigate }) => {
         setErrors(data.errors);
       }
     }
-
-    // return dispatch(sessionActions.login({ credential, password }))
-    //   .then(closeModal, navigate("/"))
-    //   .catch(async (res) => {
-    //     const data = await res.json();
-    //     if (data?.errors) {
-    //       setErrors(data.errors);
-    //     }
-    //   });
   };
 
   useEffect(() => {

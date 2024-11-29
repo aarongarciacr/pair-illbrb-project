@@ -3,6 +3,8 @@ import "./SpotReviews.css";
 
 import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import DeleteReviewModal from "../ManageReviews/DeleteReviewModal";
+import UpdateReviewModal from "../ManageReviews/UpdateReviewModal";
 
 function SpotReviews({ isLoggedIn }) {
   const spot = useSelector((state) => state.spots.singleSpot);
@@ -29,19 +31,12 @@ function SpotReviews({ isLoggedIn }) {
       </h2>
 
       {isLoggedIn && !isOwner && !reviewedByUser && (
-        //   <button
-        //     className="post-review-button"
-        //     onClick={() => setReviewBox(!reviewBox)}
-        //   >
-        //     Post Your Review
-        //   </button>
         <OpenModalButton
           modalComponent={<PostReview spotId={spot.id} />}
           buttonText={"Post Your Review"}
           className="post-review-button"
         />
       )}
-      {/* // {reviewBox && <PostReview />} */}
 
       <div className="reviews-list">
         {reviews.map((review) => (
@@ -55,6 +50,28 @@ function SpotReviews({ isLoggedIn }) {
             </p>
             <p className="ratingReview">Rating: ⭐ {review.stars}</p>
             <p className="reviewText">{review.review}</p>
+            {!!(sessionUser?.id === review.User?.id) && (
+              <div className="update-delete-buttons-container">
+                <OpenModalButton
+                  modalComponent={
+                    <UpdateReviewModal
+                      oldReview={review}
+                      reviewId={review.id}
+                      spotId={spot.id}
+                    />
+                  }
+                  buttonText={"Update"}
+                  className="update-review-button-details-page"
+                />
+                <OpenModalButton
+                  modalComponent={
+                    <DeleteReviewModal reviewId={review.id} spotId={spot.id} />
+                  }
+                  buttonText={"Delete"}
+                  className="delete-review-button-details-page"
+                />
+              </div>
+            )}
           </div>
         ))}
       </div>
