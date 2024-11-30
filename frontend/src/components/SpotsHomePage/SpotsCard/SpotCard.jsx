@@ -16,7 +16,6 @@ function SpotCard({ id, previewImage, city, state, price, avgRating, name }) {
     }
     getPreviewImage();
   }, [dispatch, id, previewImage]);
-  // console.log("previewImage:", previewImage);/
 
   return (
     <Link to={`/spots/${id}`} className="spot-card">

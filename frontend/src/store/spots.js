@@ -1,4 +1,5 @@
 import { csrfFetch } from "./csrf";
+import { createSelector } from "reselect";
 
 // Action Types
 const SET_SPOTS = "spots/setSpots";
@@ -76,6 +77,13 @@ const normalizedSpots = (spotsArray) => {
   }, {}); // Start with an empty object
 };
 
+//memoized
+export const selectAllSpots = (state) => state.spots?.allSpots || {};
+
+export const selectSpotsArray = createSelector([selectAllSpots], (allSpots) =>
+  allSpots ? Object.values(allSpots) : []
+);
+
 // Thunk
 export const fetchSpots = () => async (dispatch) => {
   const response = await csrfFetch("/api/spots");
@@ -90,7 +98,6 @@ export const fetchSingleSpot = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}`);
   if (response.ok) {
     const spot = await response.json();
-    console.log("spot:", spot);
     dispatch(setSingleSpot(spot));
   }
 };
@@ -99,7 +106,6 @@ export const fetchSpotPreviewImage = (spotId) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}/prevImage`);
   if (response.ok) {
     const image = await response.json();
-    console.log("image,", image);
     dispatch(getSpotImagePreview(image));
     return image;
   }

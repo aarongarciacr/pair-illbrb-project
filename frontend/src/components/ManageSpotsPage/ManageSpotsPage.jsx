@@ -16,8 +16,6 @@ function ManageSpotsPage() {
     )
   );
 
-  console.log("spots:", spotsOwned);
-
   if (!spotsOwned || spotsOwned.length === 0) {
     return <p>No spots available</p>;
   }

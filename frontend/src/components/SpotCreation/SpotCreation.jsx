@@ -57,16 +57,9 @@ const CreateSpot = () => {
     };
 
     try {
-      // Step 1: Create the spot
       const createdSpot = await dispatch(fetchCreateSpot(newSpot));
 
-      if (createdSpot.previewImage) {
-        console.log("Preview image ID:", createdSpot.previewImage);
-        // Use this to fetch and display the preview image
-      }
-
       if (createdSpot) {
-        // Step 2: Post images for the created spot
         const allImages = [
           { url: previewImg },
           ...imageUrls
@@ -78,7 +71,6 @@ const CreateSpot = () => {
           await dispatch(fetchPostImages(createdSpot.id, image));
         }
 
-        // Step 3: Navigate to the created spot's details page
         navigate(`/spots/${createdSpot.id}`);
       }
     } catch (error) {

@@ -133,7 +133,7 @@ router.get("/current", requireAuth, async (req, res) => {
 });
 
 // Get all Reviews by a Spot's id
-router.get("/:spotId/reviews", requireAuth, async (req, res) => {
+router.get("/:spotId/reviews", async (req, res) => {
   const { spotId } = req.params;
   const spotIdNumber = parseInt(spotId);
 
@@ -379,10 +379,6 @@ router.post(
   validateReview,
   requireSpotExists,
   async (req, res) => {
-    console.log("Received Data:", req.body); // Log incoming data
-    console.log("Spot ID:", req.spot.id);
-    console.log("User ID:", req.user.id);
-
     const { spot, user } = req;
 
     const existingReview = await Review.findOne({
@@ -414,7 +410,6 @@ router.get("/:spotId/prevImage", async (req, res) => {
   const parseSpotId = parseInt(spotId);
   // Find the spot by ID
   const spot = await Spot.findByPk(parseSpotId);
-  // console.log(spot.previewImage);
 
   if (!spot) {
     return res.status(404).json({ message: "Spot not found" });
@@ -454,7 +449,6 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
 
   if (!spot.previewImage) {
     await spot.update({ previewImage: spotImage.id });
-    console.log("Updated previewImage:", spot.previewImage);
   }
 
   const response = { id: spotImage.id, url: spotImage.url };

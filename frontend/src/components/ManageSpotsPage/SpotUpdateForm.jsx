@@ -8,7 +8,7 @@ const SpotUpdateForm = () => {
   const { spotId } = useParams();
   const parseSpotId = parseInt(spotId);
   const spot = useSelector((state) => state.spots?.singleSpot);
-  const images = useSelector((state) => state.spots?.singleSpot?.SpotImages);
+  // const images = useSelector((state) => state.spots?.singleSpot?.SpotImages);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();

@@ -19,7 +19,7 @@ const PostReview = ({ spotId }) => {
   const { closeModal } = useModal();
 
   const handleStarClick = (star) => {
-    setStars(star); // Update stars
+    setStars(star);
   };
 
   const handleSubmit = async (e) => {
@@ -28,7 +28,7 @@ const PostReview = ({ spotId }) => {
 
     const newReview = {
       review,
-      stars, // Ensure the key matches the backend expectation
+      stars,
     };
 
     try {
@@ -53,6 +53,7 @@ const PostReview = ({ spotId }) => {
       <form className="reviewForm" onSubmit={handleSubmit}>
         <label className="reviewTextBox" htmlFor="reviewText">
           <p className="comments">How was your stay?</p>
+          {errors.error && <div className="error">{errors.error}</div>}
           <textarea
             name="review"
             placeholder="Tell everyone about your experience!"

@@ -1,21 +1,18 @@
 import { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "../../context/Modal";
+import { fetchUpdateReview } from "../../store/reviews";
+import { fetchReviews, fetchSingleSpot } from "../../store/spots";
 
-const UpdateReviewModal = ({ reviewId, oldReview }) => {
-  console.log("oldREview:", oldReview);
-  //   const currentReview = useSelector(
-  //     (state) => state.reviews?.userReviews?.[reviewId] || {}
-  //   );
+const UpdateReviewModal = ({ oldReview }) => {
   const [review, setReview] = useState(oldReview?.review || "");
   const [stars, setStars] = useState(oldReview?.stars || 0);
   const [isDisable, setIsDisable] = useState(true);
   const [errors, setErrors] = useState({});
   const { closeModal } = useModal();
-
-  console.log("review:", review);
+  const dispatch = useDispatch();
 
   const handleStarClick = (star) => {
     setStars(star);
@@ -25,17 +22,30 @@ const UpdateReviewModal = ({ reviewId, oldReview }) => {
     setIsDisable(!(review?.length > 10 && stars > 0));
   }, [review, stars]);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    // Add the logic to update the review here
-    console.log("Updating review:", { review, stars });
-    closeModal();
+
+    const reviewData = { review, stars };
+
+    try {
+      await dispatch(fetchUpdateReview(oldReview?.id, reviewData));
+      await dispatch(fetchSingleSpot(oldReview?.spotId));
+      await dispatch(fetchReviews(oldReview?.spotId));
+      //   await dispatch(fetchSpots());
+      closeModal();
+    } catch (error) {
+      const data = await error.json();
+      if (data?.errors) {
+        setErrors(data.errors);
+      }
+    }
   };
 
   return (
     <form onSubmit={handleSubmit}>
       <div className="update-review-container">
-        <h1>How was your stay at {oldReview.Spot?.name || "this spot"}?</h1>
+        <h1>How was your stay at {oldReview?.Spot?.name || "this spot"}?</h1>
+        {errors.errors && <div className="error">{errors.error}</div>}
         <textarea
           name="review"
           placeholder="Tell everyone about your experience!"

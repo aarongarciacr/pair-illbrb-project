@@ -21,7 +21,6 @@ function SpotDetailsPage() {
   const sessionUser = useSelector((state) => state.session.user);
 
   useEffect(() => {
-    // Fetch spot details, images, and reviews
     dispatch(fetchSingleSpot(parseInt(spotId)));
     dispatch(fetchSpotImages(parseInt(spotId)));
     dispatch(fetchReviews(parseInt(spotId)));
@@ -45,7 +44,7 @@ function SpotDetailsPage() {
       <SpotReserveDetails
         price={spot.price}
         avgRating={spot.avgRating}
-        reviewCount={spot.reviews?.length || 0} // Fixing review count from `spot`
+        reviewCount={spot.reviews?.length || 0}
       />
       <SpotReviews reviews={spot.reviews || []} isLoggedIn={!!sessionUser} />
     </div>

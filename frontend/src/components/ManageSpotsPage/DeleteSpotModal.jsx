@@ -1,5 +1,5 @@
 import { useModal } from "../../context/Modal";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { fetchDeleteSpot, fetchSpots } from "../../store/spots";
 
 const DeleteSpotModal = ({ spotId }) => {
