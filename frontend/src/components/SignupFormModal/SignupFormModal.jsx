@@ -57,8 +57,7 @@ const SignupFormModal = ({ navigate }) => {
       lastName.trim() &&
       email.trim() &&
       password &&
-      confirmPassword &&
-      password === confirmPassword;
+      confirmPassword;
 
     setIsDisable(!isFormValid);
   }, [username, firstName, lastName, email, password, confirmPassword]);
@@ -67,7 +66,7 @@ const SignupFormModal = ({ navigate }) => {
     <div className="signup-box">
       <h1>Sign Up</h1>
       <form onSubmit={handleSubmit} className="signup-form">
-        <label htmlFor="firstName" id="firstName">
+        <div className="name-group">
           <input
             type="text"
             name="firstName"
@@ -76,13 +75,7 @@ const SignupFormModal = ({ navigate }) => {
             onChange={(e) => setFirstName(e.target.value)}
             required
           />
-        </label>
-        {errors.firstName && (
-          <p className="error firstname-error">
-            First Name must be between 2 and 30 characters.
-          </p>
-        )}
-        <label htmlFor="lastName" id="lastName">
+
           <input
             type="text"
             name="lastName"
@@ -91,13 +84,16 @@ const SignupFormModal = ({ navigate }) => {
             onChange={(e) => setLastName(e.target.value)}
             required
           />
-        </label>
-        {errors.lastName && (
-          <p className="error lastname-error">
-            Last Name must be between 2 and 30 characters.
-          </p>
-        )}
-        <label htmlFor="username" id="username">
+          {errors.lastName || errors.firstName ? (
+            <p className="error lastname-error">
+              First and Last Name must be between 2 and 30 characters.
+            </p>
+          ) : (
+            ""
+          )}
+        </div>
+
+        <div className="username-group">
           <input
             type="text"
             name="username"
@@ -106,11 +102,12 @@ const SignupFormModal = ({ navigate }) => {
             onChange={(e) => setUsername(e.target.value)}
             required
           />
-        </label>
-        {errors.username && (
-          <p className="error username-error">{errors.username}</p>
-        )}
-        <label htmlFor="email" id="email">
+          {errors.username && (
+            <p className="error username-error">{errors.username}</p>
+          )}
+        </div>
+
+        <div className="email-group">
           <input
             type="email"
             name="email"
@@ -119,36 +116,40 @@ const SignupFormModal = ({ navigate }) => {
             onChange={(e) => setEmail(e.target.value)}
             required
           />
-        </label>
-        {errors.email && <p className="error email-error">{errors.email}</p>}
-        <label htmlFor="password" id="password">
-          <input
-            type="password"
-            name="password"
-            placeholder="Insert a password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.password && (
-          <p className="error password-error">{errors.password}</p>
-        )}
-        <label htmlFor="confirm-password" id="confirm-password">
-          <input
-            type="password"
-            name="confirm-password"
-            placeholder="Confirm password"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            required
-          />
-        </label>
-        {errors.confirmPassword && (
-          <p className="error passwordConfirm-error">
-            {errors.confirmPassword}
-          </p>
-        )}
+          {errors.email && <p className="error email-error">{errors.email}</p>}
+        </div>
+
+        <div className="both-passwords-box">
+          <div className="password-group">
+            <input
+              type="password"
+              name="password"
+              placeholder="Insert a password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+            />
+            {errors.password && (
+              <p className="error password-error">{errors.password}</p>
+            )}
+          </div>
+
+          <div className="confirm-password-group">
+            <input
+              type="password"
+              name="confirm-password"
+              placeholder="Confirm password"
+              value={confirmPassword}
+              onChange={(e) => setConfirmPassword(e.target.value)}
+              required
+            />
+            {errors.confirmPassword && (
+              <p className="error passwordConfirm-error">
+                {errors.confirmPassword}
+              </p>
+            )}
+          </div>
+        </div>
 
         <button
           className={isDisable ? "disable-button" : "enabled-button"}
@@ -163,5 +164,4 @@ const SignupFormModal = ({ navigate }) => {
     </div>
   );
 };
-
 export default SignupFormModal;

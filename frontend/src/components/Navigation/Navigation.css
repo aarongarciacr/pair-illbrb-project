@@ -1,18 +1,21 @@
-/* General Reset */
-body {
-  margin: 0;
-  padding: 0;
-  font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-}
 
-/* Navigation Bar */
+
+
+.nav-container{
+  background-color: #ffffff;
+  position: fixed; 
+  top: 0; 
+  width: 100%; 
+  z-index: 10;
+}
 .nav-box {
   margin: 0;
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   gap: 50%;
   padding: 0 40px;
   height: fit-content;
+  border-bottom: 2px solid rgba(163, 163, 163, 0.516);
 }
 
 .nav.flex-layout {
@@ -28,7 +31,7 @@ body {
   gap: 10px;
 }
 
-/* Home Link */
+
 #home-link-container {
   text-align: start;
   transition: transform 0.2s ease, opacity 0.2s ease;
@@ -56,9 +59,9 @@ body {
   text-align: center;
   margin: auto;
   padding-top: 10px;
+  color: #FE375B;
 }
 
-/* Create Spot */
 .createSpot {
   text-decoration: none;
   grid-area: createSpot;
@@ -78,7 +81,6 @@ body {
 
 }
 
-/* Profile Box */
 .profile-box {
   display: grid;
   grid-template-columns: 1fr auto;
@@ -92,8 +94,9 @@ body {
   margin-top: 15px;
 }
 
-/* Profile Button */
+
 .profile-button {
+  position: relative;
   grid-area: profileButton;
   justify-self: end;
   min-width: fit-content;
@@ -126,8 +129,11 @@ body {
     0.125rem 0.125rem 1rem rgba(255, 154, 90, 0.5);
 }
 
-/* Profile Dropdown */
+
 .profile-dropdown {
+  position: absolute;
+  z-index: 100;
+  top: 60px;
   grid-area: dropdown;
   text-align: right;
   align-self: start;
@@ -135,33 +141,71 @@ body {
   opacity: 0;
   visibility: hidden;
   transition: opacity 200ms ease, visibility 200ms ease;
+  background-color: white;
+  border-radius: 20px;
+  box-shadow: rgba(0, 0, 0, 0.3) 0px 19px 38px, rgba(0, 0, 0, 0.22) 0px 15px 12px;
 }
 
 .profile-dropdown.shown {
+  padding: 10px;
+  padding-right: 10px;
   visibility: visible;
   opacity: 1;
   margin-top: 5px;
-  box-shadow: rgba(0, 0, 0, 0.15) 0px 3px 3px 0px;
+  text-align: center;
+  right: 30px;
+  transition: opacity 200ms ease, visibility 200ms ease;
+
 }
 
 .profile-dropdown.hidden {
   visibility: hidden;
   opacity: 0;
+  padding: 10px;
+  padding-right: 10px;
+  margin-top: 5px;
+  text-align: center;
+  right: 30px;
 }
 
-/* Buttons and Links */
+
+@keyframes scaleUpDown{
+  0% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+  100% {
+    transform: scale(.95);
+    opacity: 0.80;
+
+  }
+}
+
 #login-link,
-#signup-link {
+#signup-link,
+.createSpot,
+#manage-spots,
+#manage-reviews,
+.home-link
+ {
   text-align: center;
   transition: transform 0.2s ease, opacity 0.2s ease;
 }
 
 #login-link:hover,
 #signup-link:hover,
-#home-link:hover {
+#home-link:hover,
+.createSpot:hover,
+#manage-spots:hover,
+#manage-reviews:hover {
   transform: scale(0.9);
   opacity: 0.75;
   cursor: pointer;
+}
+.home-link:hover {
+  animation: scaleUpDown 0.3s ease-in-out forwards; 
 }
 
 #logout {
@@ -199,7 +243,23 @@ body {
   opacity: 0.5;
 }
 
-/* General List Styling */
 ul {
   list-style-type: none;
+}
+
+#email {
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(163, 163, 163, 0.516);
+}
+
+.manage-container {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+#manage-spots,
+#manage-reviews {
+  color: rgb(54, 54, 191);
 }

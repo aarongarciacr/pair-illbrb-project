@@ -1,5 +1,4 @@
 .login-box {
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     display: flex;
     margin: 0;
     height: auto;
@@ -17,7 +16,8 @@
 }
 
 input[type=text],
-input[type=password] {
+input[type=password],
+input[type=email] {
     border: 2px, solid, gray;
     border-radius: 5px;
     width: 100%;
@@ -36,6 +36,8 @@ p {
 .enabled-button {
   width: 100%;
     margin: auto;
+    margin-top: 30px;
+
   align-items: center;
   background-image: linear-gradient(135deg, #FE375B 40%, #D70566);
   border: 0;
@@ -94,6 +96,7 @@ p {
 .disable-button {
   width: 100%;
     margin: auto;
+    margin-top: 30px;
   align-items: center;
   background-image: linear-gradient(135deg, #a5a5a5 40%, #a5a5a5);
   border: 0;

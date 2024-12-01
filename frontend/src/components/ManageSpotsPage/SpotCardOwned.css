@@ -1,0 +1,110 @@
+.buttons-container-spots-owned {
+    display: flex;
+    justify-content: center;
+    gap:20px ;
+    height: 100px;
+    padding-bottom: 2%;
+
+    align-items: flex-end;
+
+}
+
+.update-btn,
+  .delete-btn{
+    background: #D70566;
+    border: 1px solid #FE375B;
+    border-radius: 6px;
+    box-shadow: rgba(0, 0, 0, 0.1) 1px 2px 4px;
+    box-sizing: border-box;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-family: nunito, roboto, proxima-nova, "proxima nova", sans-serif;
+    font-size: 13px;
+    font-weight: 800;
+    line-height: 16px;
+    height: 30px;
+    outline: 0;
+    padding: 0 10px;
+    text-align: center;
+    text-rendering: geometricprecision;
+    text-transform: none;
+    user-select: none;
+    touch-action: manipulation;
+    vertical-align: middle;
+
+  }
+
+  
+  .update-btn:hover,
+  .update-btn:active,
+  .delete-btn:hover,
+  .delete-btn:active {
+    background-color: initial;
+    background-position: 0 0;
+    color: #FE375B;
+  }
+  
+  .update-btn:active,
+  .delete-btn:active {
+    opacity: 0.5;
+  }
+
+
+
+  .spot-card-owned,
+.spot-card-container {
+  display: flex;
+  flex-direction: column;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    width: 89%;
+    margin: auto;
+    transition: transform 0.3s ease;
+
+    max-height: 431.4px;
+    min-height: 431.4px;
+
+}
+
+.spot-card-owned:hover {
+    transform: translateY(-4px);
+    cursor: pointer;
+}
+
+.image-container {
+    width: 100%;
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .spot-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .spot-details {
+    padding: 16px;
+    text-align: left;
+  }
+  
+  .location {
+    font-size: 1.1rem;
+    font-weight: bold;
+    color: #333;
+    margin-bottom: 8px;
+  }
+  
+  .price {
+    font-size: 1rem;
+    color: #555;
+  }
+  
+  .rating {
+    font-size: 0.9rem;
+    color: #999;
+    margin: 0;
+  }

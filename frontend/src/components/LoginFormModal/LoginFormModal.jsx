@@ -35,7 +35,6 @@ const LoginFormModal = ({ navigate }) => {
   return (
     <div className="login-box">
       <h1>Log In</h1>
-      <br />
       <form onSubmit={handleSubmit} className="login-form">
         <label htmlFor="credential" className="label">
           <input
@@ -48,8 +47,6 @@ const LoginFormModal = ({ navigate }) => {
             required
           />
         </label>
-        <br></br>
-        <br></br>
 
         <label htmlFor="password" className="label">
           <input
@@ -66,8 +63,6 @@ const LoginFormModal = ({ navigate }) => {
         {errors.message && (
           <p className="invalidCredentials">{errors.message}</p>
         )}
-        <br></br>
-        <br></br>
         <button
           className={isDisable ? "disable-button" : "enabled-button"}
           role="button"

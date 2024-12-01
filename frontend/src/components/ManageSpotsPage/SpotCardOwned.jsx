@@ -5,6 +5,7 @@ import { fetchSpotPreviewImage } from "../../store/spots";
 import { useNavigate } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeleteSpotModal from "./DeleteSpotModal";
+import "./SpotCardOwned.css";
 
 function SpotCard({ id, previewImage, city, state, price, avgRating, name }) {
   const dispatch = useDispatch();
@@ -22,7 +23,7 @@ function SpotCard({ id, previewImage, city, state, price, avgRating, name }) {
   }, [dispatch, id, previewImage]);
 
   return (
-    <div className="spot-card">
+    <div className="spot-card-owned">
       <Link to={`/spots/${id}`} className="spot-link">
         <div title={name}>
           <div className="image-container">
@@ -41,7 +42,7 @@ function SpotCard({ id, previewImage, city, state, price, avgRating, name }) {
           </div>
         </div>
       </Link>
-      <div className="buttons-container">
+      <div className="buttons-container-spots-owned">
         <button
           type="button"
           onClick={(e) => {

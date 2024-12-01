@@ -10,25 +10,27 @@ function Navigation({ isLoaded }) {
   const showCreateSpot = !!sessionUser;
 
   return (
-    <ul className="nav-box">
-      <li id="home-link-container">
-        <Link to="/" className="home-link">
-          <img src={Logo} className="logo"></img>
+    <nav className="nav-container">
+      <ul className="nav-box">
+        <li id="home-link-container">
+          <Link to="/" className="home-link">
+            <img src={Logo} className="logo"></img>
 
-          <p className="illBRB">I&apos;ll BRB</p>
-        </Link>
-      </li>
-      {isLoaded && (
-        <li className="profile-box">
-          {showCreateSpot && (
-            <Link to="spots/new" className="createSpot">
-              <p id="createSpotText">Create a New Spot</p>
-            </Link>
-          )}
-          <ProfileButton user={sessionUser} />
+            <p className="illBRB">I&apos;ll BRB</p>
+          </Link>
         </li>
-      )}
-    </ul>
+        {isLoaded && (
+          <li className="profile-box">
+            {showCreateSpot && (
+              <Link to="spots/new" className="createSpot">
+                <p id="createSpotText">Create a New Spot</p>
+              </Link>
+            )}
+            <ProfileButton user={sessionUser} />
+          </li>
+        )}
+      </ul>
+    </nav>
   );
 }
 

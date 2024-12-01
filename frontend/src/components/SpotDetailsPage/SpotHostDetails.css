@@ -1,9 +1,10 @@
 .spot-host-details {
     grid-area: host;
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-
+    padding-bottom: 30px;
 }
 
-p {
+.spot-description {
     font-style: normal;
+    color: rgb(63, 63, 63);
 }
+

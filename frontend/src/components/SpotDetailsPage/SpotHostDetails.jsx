@@ -9,7 +9,7 @@ function SpotHostDetails() {
       <h2>
         Hosted by {spot?.Owner?.firstName} {spot?.Owner?.lastName}
       </h2>
-      <p>{spot.description}</p>
+      <p className="spot-description">{spot.description}</p>
     </div>
   );
 }

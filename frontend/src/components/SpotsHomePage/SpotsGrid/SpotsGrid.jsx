@@ -1,9 +1,9 @@
 import { useDispatch, useSelector } from "react-redux";
-import SpotCard from "../SpotsCard/SpotCard";
 import { useEffect } from "react";
 import { fetchSpots } from "../../../store/spots";
 import { selectSpotsArray } from "../../../store/spots";
 import "./SpotsGrid.css";
+import SpotCard from "../../ManageSpotsPage/SpotCardOwned";
 
 function SpotsGrid() {
   const dispatch = useDispatch();
@@ -18,11 +18,13 @@ function SpotsGrid() {
   }
 
   return (
-    <div className="spots-grid">
-      {spots.map((spot) => (
-        <SpotCard key={spot?.id} {...spot} />
-      ))}
-    </div>
+    <main>
+      <div className="spots-grid">
+        {spots.map((spot) => (
+          <SpotCard key={spot?.id} {...spot} />
+        ))}
+      </div>
+    </main>
   );
 }
 

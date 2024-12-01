@@ -1,0 +1,23 @@
+.h1-update {
+    font-size: 1.8rem;
+}
+
+.textarea-box2 {
+    width: 100%;
+    height: 100%;
+    max-width: 450px;
+    min-width: 325.825px;
+    max-height: 300px;
+    min-height: 110px;
+  }
+  
+
+  .update-review-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  textarea {
+    font-family: "Poppins", sans-serif;
+  }

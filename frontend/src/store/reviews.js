@@ -82,9 +82,11 @@ const reviewReducer = (state = {}, action) => {
       return newState;
     }
     case GET_USER_REVIEWS: {
+      const { reviews } = action;
+
       return {
         ...state,
-        userReviews: action.reviews,
+        userReviews: reviews,
       };
     }
     case UPDATE_REVIEW: {

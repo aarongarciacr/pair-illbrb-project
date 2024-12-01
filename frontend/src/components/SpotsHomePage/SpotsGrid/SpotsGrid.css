@@ -3,12 +3,10 @@
     grid-template-columns: repeat(4, 1fr);
     margin: auto;
     width: 90%;
-    
-    /* flex-wrap: wrap;
-    justify-content: center; */
     gap: 16px;
-    padding: 16px;
+    padding: 50px;
     background-color: #f9f9f9;
+    
 }
 
 .spots-grid p {
@@ -18,7 +16,7 @@
     margin-top: 16px;
 }
 
-@media (max-width: 1000px) {
+@media (max-width: 1050px) {
     .spots-grid {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
@@ -32,7 +30,7 @@
   }
 
 
-  @media (max-width: 550px) {
+  @media (max-width: 580px) {
     .spots-grid {
         display: grid;
         grid-template-columns:  1fr;

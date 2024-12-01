@@ -4,10 +4,13 @@ import { fetchUserReviews } from "../../store/reviews";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeleteReviewModal from "./DeleteReviewModal";
 import UpdateReviewModal from "./UpdateReviewModal";
+import "./ManageReviewsPage.css";
 
 const ManageReviewsPage = () => {
   const userReviews = useSelector((state) => state.reviews?.userReviews || {});
-  const userReviewsArray = Object.values(userReviews);
+  const userReviewsArray = Object.values(userReviews).sort(
+    (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+  );
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -34,21 +37,23 @@ const ManageReviewsPage = () => {
             </p>
             <p className="ratingReview"> Rating: ⭐ {review?.stars}</p>
             <p className="reviewText">{review?.review}</p>
-            <OpenModalButton
-              modalComponent={<UpdateReviewModal oldReview={review} />}
-              buttonText={"Update"}
-              className="update-review-button-details-page"
-            />
-            <OpenModalButton
-              modalComponent={
-                <DeleteReviewModal
-                  reviewId={review?.id}
-                  spotId={review?.spotId}
-                />
-              }
-              buttonText={"Delete"}
-              className="delete-review-button-details-page"
-            />{" "}
+            <div className="buttons-container-manage-reviews">
+              <OpenModalButton
+                modalComponent={<UpdateReviewModal oldReview={review} />}
+                buttonText={"Update"}
+                className="update-review-button-details-page"
+              />
+              <OpenModalButton
+                modalComponent={
+                  <DeleteReviewModal
+                    reviewId={review?.id}
+                    spotId={review?.spotId}
+                  />
+                }
+                buttonText={"Delete"}
+                className="delete-review-button-details-page"
+              />
+            </div>
           </div>
         ))}
       </div>

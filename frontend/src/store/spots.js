@@ -81,7 +81,11 @@ const normalizedSpots = (spotsArray) => {
 export const selectAllSpots = (state) => state.spots?.allSpots || {};
 
 export const selectSpotsArray = createSelector([selectAllSpots], (allSpots) =>
-  allSpots ? Object.values(allSpots) : []
+  allSpots
+    ? Object.values(allSpots).sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      )
+    : []
 );
 
 // Thunk
@@ -142,6 +146,7 @@ export const fetchCreateSpot = (newSpot) => async (dispatch) => {
   if (response.ok) {
     const spot = await response.json();
     dispatch(createSpot(spot));
+    dispatch(fetchSpots());
     return spot;
   }
 };
@@ -172,6 +177,7 @@ export const fetchCreateReview = (spotId, review) => async (dispatch) => {
   if (response.ok) {
     const newReview = await response.json();
     dispatch(createReview(spotId, newReview));
+    // dispatch(fetchReviews(spotId));
     return newReview;
   }
 };
@@ -219,12 +225,17 @@ const spotsReducer = (state = {}, action) => {
     }
     case GET_REVIEWS: {
       const { spotId, reviews } = action;
+
+      const sortedReviews = [...reviews].sort(
+        (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
+      );
+
       if (state.singleSpot?.id === spotId) {
         return {
           ...state,
           singleSpot: {
             ...state.singleSpot,
-            reviews,
+            reviews: sortedReviews,
           },
         };
       }
@@ -235,8 +246,8 @@ const spotsReducer = (state = {}, action) => {
       return {
         ...state,
         allSpots: {
-          ...state.allSpots,
           [newSpot.id]: newSpot,
+          ...state.allSpots,
         },
       };
     }
@@ -255,7 +266,7 @@ const spotsReducer = (state = {}, action) => {
       const updatedSpot = { ...state.singleSpot };
 
       if (updatedSpot.id === spotId) {
-        updatedSpot.reviews = [...updatedSpot.reviews, newReview];
+        updatedSpot.reviews = [newReview, ...updatedSpot.reviews];
       }
 
       return { ...state, singleSpot: updatedSpot };

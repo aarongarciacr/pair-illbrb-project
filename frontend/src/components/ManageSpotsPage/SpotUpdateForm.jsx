@@ -3,12 +3,12 @@ import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchPostImages, fetchSingleSpot } from "../../store/spots";
 import { fetchUpdateSpot } from "../../store/spots";
+import "./SpotUpdateForm.css";
 
 const SpotUpdateForm = () => {
   const { spotId } = useParams();
   const parseSpotId = parseInt(spotId);
   const spot = useSelector((state) => state.spots?.singleSpot);
-  // const images = useSelector((state) => state.spots?.singleSpot?.SpotImages);
 
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -45,18 +45,16 @@ const SpotUpdateForm = () => {
         lng: spot.lng || null,
       });
 
-      // Set preview image and extra image URLs
       const previewImage =
         spot?.SpotImages?.find((image) => image.id === spot.previewImage)
           ?.url || "";
       setPreviewImg(previewImage);
 
-      // Prepare exactly 4 extra image URLs
       const extraImages =
-        spot?.SpotImages?.filter((img) => img.id !== spot.previewImage).map(
+        spot?.SpotImages?.filter((img) => img.id !== spot?.previewImage).map(
           (img) => img.url
         ) || [];
-      setImageUrls([...extraImages, "", "", "", ""].slice(0, 4));
+      setImageUrls([...extraImages.slice(0, 4), "", "", "", ""].slice(0, 4));
     }
   }, [spot, dispatch, spotId, parseSpotId]);
 
@@ -117,13 +115,20 @@ const SpotUpdateForm = () => {
     }
   };
 
+  const handleImageUrlChange = (index, value) => {
+    const updatedUrls = [...imageUrls];
+    updatedUrls[index] = value;
+
+    setImageUrls(updatedUrls.slice(0, 4));
+  };
+
   return (
     <main>
       <h1>Update Your Spot</h1>
       <form onSubmit={onSubmit}>
         <div className="locationInfoContainer container">
-          <h2>Where is your place Located?</h2>
-          <p>
+          <h2 className="header2">Where is your place Located?</h2>
+          <p className="p-descriptions">
             Guests will only get your exact address once they book a
             reservation.
           </p>
@@ -221,8 +226,8 @@ const SpotUpdateForm = () => {
           </div>
         </div>
         <div className="descriptionContainer container">
-          <h2>Describe your place to guests</h2>
-          <p>
+          <h2 className="header2">Describe your place to guests</h2>
+          <p className="p-descriptions">
             Mention the best features of your space, any special amenities like
             fast wifi or parking, and what you love about the neighborhood.
           </p>
@@ -242,8 +247,8 @@ const SpotUpdateForm = () => {
           </div>
         </div>
         <div className="spotTitleContainer container">
-          <h2>Create a title for your spot</h2>
-          <p>
+          <h2 className="header2">Create a title for your spot</h2>
+          <p className="p-descriptions">
             Catch guests&apos; attention with a spot title that highlights what
             makes your place special.
           </p>
@@ -260,8 +265,8 @@ const SpotUpdateForm = () => {
           </div>
         </div>
         <div className="priceContainer container">
-          <h2>Set a base price for your spot</h2>
-          <p>
+          <h2 className="header2">Set a base price for your spot</h2>
+          <p className="p-descriptions">
             Competitive pricing can help your listing stand out and rank higher
             in search results.
           </p>
@@ -282,8 +287,10 @@ const SpotUpdateForm = () => {
           </div>
         </div>
         <div className="photosContainer container">
-          <h2>Liven up your spot with photos</h2>
-          <p>Submit a link to at least one photo to publish your spot.</p>
+          <h2 className="header2">Liven up your spot with photos</h2>
+          <p className="p-descriptions">
+            Submit a link to at least one photo to publish your spot.
+          </p>
           <div className="form photosUrl">
             <input
               placeholder="Preview Image URL"
@@ -296,11 +303,7 @@ const SpotUpdateForm = () => {
                 <input
                   placeholder={`Image URL ${index + 1}`}
                   value={url || ""}
-                  onChange={(e) => {
-                    const updatedUrls = [...imageUrls];
-                    updatedUrls[index] = e.target.value;
-                    setImageUrls(updatedUrls);
-                  }}
+                  onChange={(e) => handleImageUrlChange(index, e.target.value)}
                 />
                 {errors[`imageUrl${index}`] && (
                   <p className="error">{errors[`imageUrl${index}`]}</p>

@@ -1,28 +1,18 @@
 import PostReview from "./PostReview";
 import "./SpotReviews.css";
-
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeleteReviewModal from "../ManageReviews/DeleteReviewModal";
 import UpdateReviewModal from "../ManageReviews/UpdateReviewModal";
-import { useEffect } from "react";
-import { fetchReviews } from "../../store/spots";
-
 function SpotReviews({ isLoggedIn }) {
   const spot = useSelector((state) => state.spots.singleSpot);
-  console.log("spot:", spot);
   const sessionUser = useSelector((state) => state.session.user);
-  const dispatch = useDispatch();
   const reviews = spot?.reviews || [];
 
   const isOwner = sessionUser?.id === spot?.Owner?.id;
   const reviewedByUser = spot?.reviews?.some(
     (review) => review.userId === sessionUser?.id
   );
-
-  // useEffect(() => {
-  //   dispatch(fetchReviews(spot.id));
-  // }, [dispatch]);
 
   return (
     <div className="spot-reviews">

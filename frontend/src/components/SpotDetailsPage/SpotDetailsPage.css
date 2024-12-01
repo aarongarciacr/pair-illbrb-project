@@ -5,8 +5,9 @@
     'mainImage mainImage additionalImages additionalImages'
     'host host host reviews'
     'reviewsDetails reviewsDetails reviewsDetails reviewsDetails';
-    gap: 20px;
+    gap: 5px;
     align-items: flex-start;
     max-width: 1000px;
     margin: auto;
+    margin-top: 100px;
 }

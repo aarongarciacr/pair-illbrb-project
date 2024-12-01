@@ -13,7 +13,7 @@ const CreateSpot = () => {
   const [lng, setLng] = useState();
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
-  const [price, setPrice] = useState(0);
+  const [price, setPrice] = useState("");
   const [errors, setErrors] = useState({});
   const [previewImg, setPreviewImg] = useState("");
   const [imageUrls, setImageUrls] = useState(["", "", "", ""]);
@@ -26,6 +26,18 @@ const CreateSpot = () => {
 
     const urlRegex = /\.(png|jpg|jpeg)$/;
     const newErrors = {};
+
+    if (!address.trim()) newErrors.address = "Address is required.";
+    if (!city.trim()) newErrors.city = "City is required.";
+    if (!state.trim()) newErrors.state = "State is required.";
+    if (!country.trim()) newErrors.country = "Country is required.";
+    if (!description.trim() || description.length < 30)
+      newErrors.description = "Description needs a minimum of 30 characters.";
+    if (!name.trim()) newErrors.name = "Name is required.";
+    if (!price) newErrors.price = "Price is required.";
+
+    if (lat && isNaN(lat)) newErrors.lat = "Latitude must be a number.";
+    if (lng && isNaN(lng)) newErrors.lng = "Longitude must be a number.";
 
     if (!previewImg.match(urlRegex)) {
       newErrors.previewImg =
@@ -83,11 +95,11 @@ const CreateSpot = () => {
 
   return (
     <main>
-      <h1>Create a New Spot</h1>
+      <h1 className="header1">Create a New Spot</h1>
       <form onSubmit={onSubmit}>
         <div className="locationInfoContainer container">
-          <h2>Where is your place Located?</h2>
-          <p>
+          <h2 className="header2">Where is your place Located?</h2>
+          <p className="p-descriptions">
             Guests will only get your exact address once they book a
             reservation.
           </p>
@@ -155,8 +167,8 @@ const CreateSpot = () => {
           </div>
         </div>
         <div className="descriptionContainer container">
-          <h2>Describe your place to guests</h2>
-          <p>
+          <h2 className="header2">Describe your place to guests</h2>
+          <p className="p-descriptions">
             Mention the best features of your space, any special amenities like
             fast wifi or parking, and what you love about the neighborhood.
           </p>
@@ -173,8 +185,8 @@ const CreateSpot = () => {
           </div>
         </div>
         <div className="spotTitleContainer container">
-          <h2>Create a title for your spot</h2>
-          <p>
+          <h2 className="header2">Create a title for your spot</h2>
+          <p className="p-descriptions">
             Catch guests&apos; attention with a spot title that highlights what
             makes your place special.
           </p>
@@ -188,8 +200,8 @@ const CreateSpot = () => {
           </div>
         </div>
         <div className="priceContainer container">
-          <h2>Set a base price for your spot</h2>
-          <p>
+          <h2 className="header2">Set a base price for your spot</h2>
+          <p className="p-descriptions">
             Competitive pricing can help your listing stand out and rank higher
             in search results.
           </p>
@@ -197,7 +209,7 @@ const CreateSpot = () => {
             <div className="input-container">
               <span className="currency-symbol">$</span>
               <input
-                type="number"
+                type="numeric"
                 placeholder="Price per night (USD)"
                 value={price}
                 onChange={(e) => setPrice(e.target.value)}
@@ -207,8 +219,10 @@ const CreateSpot = () => {
           </div>
         </div>
         <div className="photosContainer container">
-          <h2>Liven up your spot with photos</h2>
-          <p>Submit a link to at least one photo to publish your spot.</p>
+          <h2 className="header2">Liven up your spot with photos</h2>
+          <p className="p-descriptions">
+            Submit a link to at least one photo to publish your spot.
+          </p>
           <div className="form photosUrl">
             <input
               placeholder="Preview Image URL"

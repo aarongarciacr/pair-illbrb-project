@@ -1,5 +1,4 @@
 .signup-box {
-    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
     display: grid;
     grid-template-rows: 1fr 3.3fr;
     width: 100%;
@@ -11,48 +10,58 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-template-areas: 
-    "firstName lastName"
+    "name name"
     "username username"
     'email email'
-    'password confirmPassword' 
+    'password password' 
     'button button';
     gap: 5px;
     width: 100%;
-    /* height: 100px; */
-    /* gap: 0px 100px; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* align-content: center; */
+
+}
+
+.name-group{
+  grid-area: name;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas: 
+  'firstName lastName'
+  'errors errors';
+}
+
+.firstname-error,
+.lastname-error {
+  grid-area: errors;
 }
 
 
-
-#username {
+.username-group {
   grid-area: username;
 }
 
-#email {
+.email-group {
   grid-area: email;
+  border: 0;
 }
+
+.both-passwords-box{
+  grid-area: password;
+}
+
 
 input{
     margin-top: 5px;
 }
 
-input[type=text],
-input[type=email] {
-    border: 2px, solid, gray;
-    border-radius: 5px;
-    width: 100%;
-    height: 2rem;
-    padding: 0px 1%;
-    text-align: center;
-    box-sizing: border-box;
-}
 
-p {
+
+
+.error {
     color: red;
     font-style: italic;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 
 #signup-btn {
@@ -63,39 +72,3 @@ label {
   padding-bottom: 20px;
 }
 
-.passwordConfirm-error { 
-  position: absolute;
-  bottom: 95px;
-  left: 10%;
-}
-
-.password-error {
-  position: absolute;
-  bottom: 95px;
-  left: 25%;
-}
-
-.email-error {
-  position: absolute;
-  bottom: 170px;
-  left: 41%;
-}
-
-.username-error {
-  position: absolute;
-  bottom: 250px;
-  left: 35%;
-}
-
-.firstname-error
-{
-  position: absolute;
-  bottom: 330px;
-  left: 14%;
-}
-
-.lastname-error {
-  position: absolute;
-  bottom: 310px;
-  left: 14%;
-}

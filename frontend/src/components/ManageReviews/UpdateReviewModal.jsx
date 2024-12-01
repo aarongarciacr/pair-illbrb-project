@@ -5,6 +5,7 @@ import { faStar } from "@fortawesome/free-solid-svg-icons";
 import { useModal } from "../../context/Modal";
 import { fetchUpdateReview } from "../../store/reviews";
 import { fetchReviews, fetchSingleSpot } from "../../store/spots";
+import "./UpdateReviewModal.css";
 
 const UpdateReviewModal = ({ oldReview }) => {
   const [review, setReview] = useState(oldReview?.review || "");
@@ -31,7 +32,6 @@ const UpdateReviewModal = ({ oldReview }) => {
       await dispatch(fetchUpdateReview(oldReview?.id, reviewData));
       await dispatch(fetchSingleSpot(oldReview?.spotId));
       await dispatch(fetchReviews(oldReview?.spotId));
-      //   await dispatch(fetchSpots());
       closeModal();
     } catch (error) {
       const data = await error.json();
@@ -44,9 +44,12 @@ const UpdateReviewModal = ({ oldReview }) => {
   return (
     <form onSubmit={handleSubmit}>
       <div className="update-review-container">
-        <h1>How was your stay at {oldReview?.Spot?.name || "this spot"}?</h1>
+        <h1 className="h1-update">
+          How was your stay at {oldReview?.Spot?.name || "this spot"}?
+        </h1>
         {errors.errors && <div className="error">{errors.error}</div>}
         <textarea
+          className="textarea-box2"
           name="review"
           placeholder="Tell everyone about your experience!"
           value={review}

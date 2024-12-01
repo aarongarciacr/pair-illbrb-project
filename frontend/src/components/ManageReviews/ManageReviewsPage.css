@@ -1,0 +1,20 @@
+.main-container {
+    width: 1000px;
+    margin: auto;
+    margin-top: 100px;
+}
+
+.buttons-container-manage-reviews {
+    display: flex;
+    gap: 20px;
+}
+
+.userFirstNameReview {
+    margin-top: 0px;
+}
+
+.review {
+    margin-bottom: 10px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid rgba(163, 163, 163, 0.516);
+}

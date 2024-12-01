@@ -52,9 +52,10 @@ const PostReview = ({ spotId }) => {
     <div className="postReviewBox">
       <form className="reviewForm" onSubmit={handleSubmit}>
         <label className="reviewTextBox" htmlFor="reviewText">
-          <p className="comments">How was your stay?</p>
+          <h1 className="comments">How was your stay?</h1>
           {errors.error && <div className="error">{errors.error}</div>}
           <textarea
+            className="textarea-box"
             name="review"
             placeholder="Tell everyone about your experience!"
             value={review}
@@ -81,7 +82,7 @@ const PostReview = ({ spotId }) => {
           className={isDisable ? "post-disabled-button" : "post-enabled-button"}
           disabled={isDisable}
         >
-          Post Review
+          Submit Review
         </button>
       </form>
     </div>
