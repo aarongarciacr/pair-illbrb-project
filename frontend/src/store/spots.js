@@ -72,9 +72,9 @@ const deleteSpot = (spotId) => ({
 //normalized data
 const normalizedSpots = (spotsArray) => {
   return spotsArray.reduce((normalized, spot) => {
-    normalized[spot.id] = spot; // Use id as the key and spot as the value
-    return normalized; // Return the updated normalized object
-  }, {}); // Start with an empty object
+    normalized[spot.id] = spot;
+    return normalized;
+  }, {});
 };
 
 //memoized
