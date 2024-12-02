@@ -2,7 +2,7 @@ import { Link } from "react-router-dom";
 import { useSelector } from "react-redux";
 import ProfileButton from "./ProfileButton";
 import "./Navigation.css";
-import Logo from "../../assets/Logo.png";
+import Logo from "../../assets/favicon.png";
 
 function Navigation({ isLoaded }) {
   const sessionUser = useSelector((state) => state.session.user);
