@@ -53,10 +53,12 @@ const SignupFormModal = ({ navigate }) => {
   useEffect(() => {
     const isFormValid =
       username.trim() &&
+      username.length >= 4 &&
       firstName.trim() &&
       lastName.trim() &&
       email.trim() &&
       password &&
+      password.length >= 6 &&
       confirmPassword;
 
     setIsDisable(!isFormValid);
