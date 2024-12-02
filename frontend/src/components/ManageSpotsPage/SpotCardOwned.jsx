@@ -7,7 +7,15 @@ import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeleteSpotModal from "./DeleteSpotModal";
 import "./SpotCardOwned.css";
 
-function SpotCard({ id, previewImage, city, state, price, avgRating, name }) {
+function SpotCardOwned({
+  id,
+  previewImage,
+  city,
+  state,
+  price,
+  avgRating,
+  name,
+}) {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState(previewImage);
@@ -64,4 +72,4 @@ function SpotCard({ id, previewImage, city, state, price, avgRating, name }) {
   );
 }
 
-export default SpotCard;
+export default SpotCardOwned;

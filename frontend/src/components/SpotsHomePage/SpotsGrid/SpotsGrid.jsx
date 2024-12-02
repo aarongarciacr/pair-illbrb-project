@@ -3,7 +3,7 @@ import { useEffect } from "react";
 import { fetchSpots } from "../../../store/spots";
 import { selectSpotsArray } from "../../../store/spots";
 import "./SpotsGrid.css";
-import SpotCard from "../../ManageSpotsPage/SpotCardOwned";
+import SpotCard from "../SpotsCard/SpotCard";
 
 function SpotsGrid() {
   const dispatch = useDispatch();
