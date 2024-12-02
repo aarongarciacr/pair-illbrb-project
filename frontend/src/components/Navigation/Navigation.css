@@ -1,5 +1,10 @@
 
 
+.logo-letters{
+  max-width: 40%
+}
+
+
 
 .nav-container{
   background-color: #ffffff;
@@ -36,13 +41,15 @@
   text-align: start;
   transition: transform 0.2s ease, opacity 0.2s ease;
   transform-origin: left;
-  min-width: fit-content;
+  /* min-width: fit-content; */
+  width: 10%;
 }
 
 .home-link {
   display: flex;
-  justify-content: center;
+  justify-content: start;
   align-items: center;
+  width: fit-content;
 }
 
 #home-link {
@@ -50,7 +57,7 @@
 }
 
 .logo {
-  max-width: 80px;
+  max-width: 70px;
 }
 
 .illBRB {
