@@ -17,55 +17,155 @@ module.exports = {
 
     const spotImages = [
       {
-        url: "https://media.gettyimages.com/id/128502214/es/foto/classic-turn-of-the-century-american-house.jpg?s=612x612&w=gi&k=20&c=d-53uwDXwR5s2qtsmTAYOa150b40LXv9X4z9QJNcFUM=",
+        //castillo
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_29.jpg",
         spotId: 1,
       },
       {
-        url: "https://plus.unsplash.com/premium_photo-1661778773089-8718bcedb39e?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8aW50ZXJpb3IlMjBkZSUyMGNhc2F8ZW58MHx8MHx8fDA%3D",
+        //cava de vinos
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_1.jpg",
         spotId: 1,
       },
       {
-        url: "https://media.gettyimages.com/id/128502214/es/foto/classic-turn-of-the-century-american-house.jpg?s=612x612&w=gi&k=20&c=d-53uwDXwR5s2qtsmTAYOa150b40LXv9X4z9QJNcFUM=",
+        //libreria
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_6.jpg",
         spotId: 1,
       },
       {
-        url: "https://media.gettyimages.com/id/128502214/es/foto/classic-turn-of-the-century-american-house.jpg?s=612x612&w=gi&k=20&c=d-53uwDXwR5s2qtsmTAYOa150b40LXv9X4z9QJNcFUM=",
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/ab528dc2-6d44-4f7b-b78a-944af1244e48.jpg",
         spotId: 1,
       },
       {
-        url: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGhvbWV8ZW58MHx8fHwxNjgyNzk2MzY3&ixlib=rb-1.2.1&q=80&w=400",
+        //casa alberca a la playa
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_28.jpg",
         spotId: 2,
       },
       {
-        url: "https://images.unsplash.com/photo-1570129477492-45c003edd2be?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDZ8fGhvbWV8ZW58MHx8fHwxNjgyNzk2MzY3&ixlib=rb-1.2.1&q=80&w=400",
+        //cocina
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_5.jpg",
+        spotId: 2,
+      },
+      {
+        //alberca a la playa
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_10.jpg",
+        spotId: 2,
+      },
+      {
+        ////casa chida normal
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_11.jpg",
         spotId: 3,
       },
       {
-        url: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=MnwzNjUyOXwwfDF8c2VhcmNofDJ8fGNvbnRlbXBvcmFyeXxlbnwwfHx8fDE2ODI3OTYzNjc&ixlib=rb-1.2.1&q=80&w=400",
+        //sala
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_16.jpg",
+        spotId: 3,
+      },
+      {
+        //officina
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_24.jpg",
+        spotId: 3,
+      },
+      {
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_3.jpg",
+        spotId: 3,
+      },
+      {
+        //industial
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_13.jpg",
         spotId: 4,
       },
       {
-        url: "https://cdn.pixabay.com/photo/2016/06/24/10/47/house-1477041_1280.jpg",
+        //industial taller
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_12.jpg",
+        spotId: 4,
+      },
+      {
+        //acogedor casa
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_30.jpg",
         spotId: 5,
       },
       {
-        url: "https://plus.unsplash.com/premium_photo-1689609950112-d66095626efb?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2FzYXN8ZW58MHx8MHx8fDA%3D",
+        //acogedor fogata
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_14.jpg",
+        spotId: 5,
+      },
+      {
+        //cocina acogedor
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_25.jpg",
+        spotId: 5,
+      },
+      {
+        //natural casa
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_15.jpg",
         spotId: 6,
       },
       {
-        url: "https://plus.unsplash.com/premium_photo-1661876449499-26de7959878f?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MTN8fGNhc2FzfGVufDB8fDB8fHww",
+        //interior natural
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_20.jpg",
+        spotId: 6,
+      },
+      {
+        //interior natural
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_21.jpg",
+        spotId: 6,
+      },
+      {
+        //interior natural
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_22.jpg",
+        spotId: 6,
+      },
+      {
+        //playa por fuera
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_23.jpg",
         spotId: 7,
       },
       {
-        url: "https://plus.unsplash.com/premium_photo-1661883964999-c1bcb57a7357?q=80&w=2028&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+        //habitacion a playa
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_31.jpg",
+        spotId: 7,
+      },
+      {
+        //ba;o en el mar
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_17.jpg",
+        spotId: 7,
+      },
+      {
+        //vista al mar
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_7.jpg",
+        spotId: 7,
+      },
+      {
+        //CASA china
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_4.jpg",
         spotId: 8,
       },
       {
-        url: "https://plus.unsplash.com/premium_photo-1661915661139-5b6a4e4a6fcc?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8Y2FzYXxlbnwwfHwwfHx8MA%3D%3D",
+        //interior chinp
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_18.jpg",
+        spotId: 8,
+      },
+      {
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/fotor-ai-202412021257.jpg",
         spotId: 9,
       },
       {
-        url: "https://images.unsplash.com/photo-1480074568708-e7b720bb3f09?w=500&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2FzYXxlbnwwfHwwfHx8MA%3D%3D",
+        //sala cocina moderna
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_19.jpg",
+        spotId: 9,
+      },
+      {
+        //oficina moderna
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_2.jpg",
+        spotId: 9,
+      },
+      {
+        //mansion CASA
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_8.jpg",
+        spotId: 10,
+      },
+      {
+        //patio mansion
+        url: "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_26.jpg",
         spotId: 10,
       },
     ];
