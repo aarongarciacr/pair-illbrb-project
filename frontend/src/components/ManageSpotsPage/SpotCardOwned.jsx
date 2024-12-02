@@ -46,7 +46,7 @@ function SpotCardOwned({
               {city}, {state}
             </p>
             <p className="price">${price} night</p>
-            <p className="rating">⭐ {avgRating ? avgRating : "N/A"} </p>
+            <p className="rating">⭐ {avgRating ? avgRating : "New"} </p>
           </div>
         </div>
       </Link>
