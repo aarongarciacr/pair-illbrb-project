@@ -1,5 +1,4 @@
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
@@ -15,9 +14,8 @@ function SpotCardOwned({
   avgRating,
   name,
 }) {
-  const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [imageUrl, setImageUrl] = useState(previewImage);
+  const [imageUrl] = useState(previewImage);
 
   return (
     <div className="spot-card-owned">
