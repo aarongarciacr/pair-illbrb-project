@@ -23,7 +23,8 @@ module.exports = {
         description:
           "A luxurious modern glass villa with breathtaking views of the city.",
         price: 450,
-        previewImage: 1, // Corresponding to the SpotImage ID
+        previewImage:
+          "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_29.jpg",
       },
       {
         ownerId: 2,
@@ -36,7 +37,8 @@ module.exports = {
         name: "Tropical Beach House",
         description: "A serene tropical beach house steps away from the ocean.",
         price: 350,
-        previewImage: 5, // Corresponding to the SpotImage ID
+        previewImage:
+          "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_28.jpg",
       },
       {
         ownerId: 3,
@@ -50,7 +52,8 @@ module.exports = {
         description:
           "Cozy log cabin surrounded by nature in the heart of Texas.",
         price: 200,
-        previewImage: 8, // Corresponding to the SpotImage ID
+        previewImage:
+          "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_11.jpg",
       },
       {
         ownerId: 4,
@@ -64,7 +67,8 @@ module.exports = {
         description:
           "Elegant Victorian mansion with historical charm and modern comforts.",
         price: 600,
-        previewImage: 12, // Corresponding to the SpotImage ID
+        previewImage:
+          "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_13.jpg",
       },
       {
         ownerId: 5,
@@ -78,7 +82,8 @@ module.exports = {
         description:
           "Luxury penthouse with stunning views of Chicago's skyline.",
         price: 700,
-        previewImage: 14, // Corresponding to the SpotImage ID
+        previewImage:
+          "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_30.jpg",
       },
       {
         ownerId: 6,
@@ -92,7 +97,8 @@ module.exports = {
         description:
           "A sustainable and energy-efficient home nestled in the mountains.",
         price: 250,
-        previewImage: 17, // Corresponding to the SpotImage ID
+        previewImage:
+          "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_15.jpg",
       },
       {
         ownerId: 7,
@@ -106,7 +112,8 @@ module.exports = {
         description:
           "Beautiful retreat with sweeping ocean views and modern amenities.",
         price: 400,
-        previewImage: 21, // Corresponding to the SpotImage ID
+        previewImage:
+          "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_23.jpg",
       },
       {
         ownerId: 8,
@@ -120,7 +127,8 @@ module.exports = {
         description:
           "Traditional Japanese-style ryokan with a tranquil atmosphere.",
         price: 300,
-        previewImage: 25, // Corresponding to the SpotImage ID
+        previewImage:
+          "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_4.jpg",
       },
       {
         ownerId: 9,
@@ -134,7 +142,8 @@ module.exports = {
         description:
           "Elegant brownstone home in the heart of Manhattan's Upper East Side.",
         price: 800,
-        previewImage: 27, // Corresponding to the SpotImage ID
+        previewImage:
+          "https://ill-brb.s3.us-east-2.amazonaws.com/fotor-ai-202412021257.jpg",
       },
       {
         ownerId: 10,
@@ -148,7 +157,8 @@ module.exports = {
         description:
           "A stunning desert home with modern architecture and pool views.",
         price: 500,
-        previewImage: 30, // Corresponding to the SpotImage ID
+        previewImage:
+          "https://ill-brb.s3.us-east-2.amazonaws.com/2024-12-2/fotor-ai-2024120205646_8.jpg",
       },
     ]);
   },
@@ -161,16 +171,16 @@ module.exports = {
       {
         name: {
           [Op.in]: [
-            "App Academy",
-            "Spot 2",
-            "Mars",
+            "Modern Glass Villa",
+            "Tropical Beach House",
+            "Rustic Log Cabin",
+            "Victorian Mansion",
+            "Urban Skyline Penthouse",
+            "Eco-Friendly Earth House",
+            "Seaside Retreat",
+            "Japanese Ryokan",
+            "Luxury Brownstone",
             "Desert Oasis",
-            "Beachfront Paradise",
-            "Big Apple Loft",
-            "Nature's Retreat",
-            "Tech Hub Haven",
-            "Mountain Chalet",
-            "Historic Charm",
           ],
         },
       },

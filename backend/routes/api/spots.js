@@ -445,11 +445,8 @@ router.post("/:spotId/images", requireAuth, async (req, res) => {
   const spotImage = await SpotImage.create({
     spotId: spotIdNumber,
     url,
+    isPreview: false,
   });
-
-  if (!spot.previewImage) {
-    await spot.update({ previewImage: spotImage.id });
-  }
 
   const response = { id: spotImage.id, url: spotImage.url };
 
@@ -526,8 +523,18 @@ const validateSpot = [
 
 // Create a Spot
 router.post("/", requireAuth, validateSpot, async (req, res) => {
-  const { address, city, state, country, lat, lng, name, description, price } =
-    req.body;
+  const {
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price,
+    previewImage,
+  } = req.body;
 
   const { user } = req;
 
@@ -542,6 +549,7 @@ router.post("/", requireAuth, validateSpot, async (req, res) => {
     name,
     description,
     price,
+    previewImage,
   });
 
   return res.status(201).json(spot);
@@ -552,8 +560,18 @@ router.put("/:spotId", requireAuth, validateSpot, async (req, res) => {
   const { spotId } = req.params;
   const spotIdNumber = parseInt(spotId);
 
-  const { address, city, state, country, lat, lng, name, description, price } =
-    req.body;
+  const {
+    address,
+    city,
+    state,
+    country,
+    lat,
+    lng,
+    name,
+    description,
+    price,
+    previewImage,
+  } = req.body;
 
   const userId = req.user.id;
 
@@ -579,6 +597,7 @@ router.put("/:spotId", requireAuth, validateSpot, async (req, res) => {
     name,
     description,
     price,
+    previewImage,
   });
 
   return res.status(200).json(spot);

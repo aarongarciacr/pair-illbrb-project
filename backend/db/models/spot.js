@@ -2,16 +2,10 @@
 
 const sequelize = require("sequelize");
 const { Model, fn, col } = sequelize;
+
 module.exports = (sequelize, DataTypes) => {
   class Spot extends Model {
-    /**
-     * Helper method for defining associations.
-     * This method is not a part of Sequelize lifecycle.
-     * The `models/index` file will call this method automatically.
-     */
     static associate(models) {
-      // define association here
-
       Spot.belongsTo(models.User, {
         as: "Owner",
         foreignKey: "ownerId",
@@ -47,6 +41,7 @@ module.exports = (sequelize, DataTypes) => {
       }));
     }
   }
+
   Spot.init(
     {
       ownerId: {
@@ -79,9 +74,6 @@ module.exports = (sequelize, DataTypes) => {
           min: -90,
           max: 90,
         },
-        get() {
-          return parseFloat(this.getDataValue("lat"));
-        },
       },
       lng: {
         type: DataTypes.DECIMAL(9, 6),
@@ -89,9 +81,6 @@ module.exports = (sequelize, DataTypes) => {
         validate: {
           min: -180,
           max: 180,
-        },
-        get() {
-          return parseFloat(this.getDataValue("lng"));
         },
       },
       name: {
@@ -109,18 +98,15 @@ module.exports = (sequelize, DataTypes) => {
         type: DataTypes.NUMERIC(10, 2),
         allowNull: false,
         validate: {
-          isPositive(value) {
-            if (value <= 0) {
-              throw new Error("Price per day must be a positive number");
-            }
-          },
-        },
-        get() {
-          return parseFloat(this.getDataValue("price"));
+          min: 0.01,
         },
       },
       previewImage: {
-        type: DataTypes.INTEGER,
+        type: DataTypes.TEXT,
+        allowNull: true,
+        validate: {
+          isUrl: true,
+        },
       },
     },
     {
@@ -128,5 +114,6 @@ module.exports = (sequelize, DataTypes) => {
       modelName: "Spot",
     }
   );
+
   return Spot;
 };

@@ -19,7 +19,7 @@ function SpotDetailsPage() {
   const spot = useSelector((state) => state.spots.singleSpot);
   const [previewImage, setPreviewImage] = useState("");
   const sessionUser = useSelector((state) => state.session.user);
-
+  console.log("spot:", spot);
   useEffect(() => {
     dispatch(fetchSingleSpot(parseInt(spotId)));
     dispatch(fetchSpotImages(parseInt(spotId)));
@@ -30,7 +30,7 @@ function SpotDetailsPage() {
   return (
     <div className="spot-details-page">
       <SpotMainImage
-        previewImage={previewImage}
+        previewImage={spot.previewImage}
         name={spot.name}
         location={`${spot.city}, ${spot.state}, ${spot.country}`}
         id={spot.id}

@@ -15,7 +15,7 @@ const CreateSpot = () => {
   const [description, setDescription] = useState("");
   const [price, setPrice] = useState("");
   const [errors, setErrors] = useState({});
-  const [previewImg, setPreviewImg] = useState("");
+  const [previewImage, setPreviewImage] = useState("");
   const [imageUrls, setImageUrls] = useState(["", "", "", ""]);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -39,8 +39,8 @@ const CreateSpot = () => {
     if (lat && isNaN(lat)) newErrors.lat = "Latitude must be a number.";
     if (lng && isNaN(lng)) newErrors.lng = "Longitude must be a number.";
 
-    if (!previewImg.match(urlRegex)) {
-      newErrors.previewImg =
+    if (!previewImage.match(urlRegex)) {
+      newErrors.previewImage =
         "Preview Image is required and must end in png, jpg, or jpeg.";
     }
 
@@ -66,6 +66,7 @@ const CreateSpot = () => {
       name,
       description,
       price,
+      previewImage,
     };
 
     try {
@@ -73,14 +74,13 @@ const CreateSpot = () => {
 
       if (createdSpot) {
         const allImages = [
-          { url: previewImg },
           ...imageUrls
             .filter((url) => url.trim() !== "")
             .map((url) => ({ url })),
         ];
 
         for (const image of allImages) {
-          await dispatch(fetchPostImages(createdSpot.id, image));
+          await dispatch(fetchPostImages(createdSpot.id, image.url));
         }
 
         navigate(`/spots/${createdSpot.id}`);
@@ -226,10 +226,12 @@ const CreateSpot = () => {
           <div className="form photosUrl">
             <input
               placeholder="Preview Image URL"
-              value={previewImg}
-              onChange={(e) => setPreviewImg(e.target.value)}
+              value={previewImage}
+              onChange={(e) => setPreviewImage(e.target.value)}
             />
-            {errors?.previewImg && <p className="error">{errors.previewImg}</p>}
+            {errors?.previewImage && (
+              <p className="error">{errors.previewImage}</p>
+            )}
             {imageUrls.map((url, index) => (
               <div key={index}>
                 <input

@@ -13,50 +13,46 @@ const SpotUpdateForm = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
+  const [address, setAddress] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [country, setCountry] = useState("");
+  const [lat, setLat] = useState();
+  const [lng, setLng] = useState();
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [price, setPrice] = useState("");
   const [errors, setErrors] = useState({});
-  const [previewImg, setPreviewImg] = useState("");
+  const [previewImage, setPreviewImage] = useState("");
   const [imageUrls, setImageUrls] = useState(["", "", "", ""]);
-
-  const [formData, setFormData] = useState({
-    address: "",
-    city: "",
-    state: "",
-    country: "",
-    name: "",
-    description: "",
-    price: 0,
-    lat: null,
-    lng: null,
-  });
 
   useEffect(() => {
     if (!spot || parseSpotId !== spot.id) {
       dispatch(fetchSingleSpot(spotId));
     } else {
-      setFormData({
-        address: spot.address || "",
-        city: spot.city || "",
-        state: spot.state || "",
-        country: spot.country || "",
-        name: spot.name || "",
-        description: spot.description || "",
-        price: spot.price || 0,
-        lat: spot.lat || null,
-        lng: spot.lng || null,
-      });
-
-      const previewImage =
-        spot?.SpotImages?.find((image) => image.id === spot.previewImage)
-          ?.url || "";
-      setPreviewImg(previewImage);
+      setAddress(spot.address || "");
+      setCity(spot.city || "");
+      setState(spot.state || "");
+      setCountry(spot.country || "");
+      setLat(spot.lat || null);
+      setLng(spot.lng || null);
+      setName(spot.name || "");
+      setDescription(spot.description || "");
+      setPrice(spot.price || "");
+      setPreviewImage(spot.previewImage || "");
 
       const extraImages =
-        spot?.SpotImages?.filter((img) => img.id !== spot?.previewImage).map(
+        spot?.SpotImages?.filter((img) => img.url !== spot.previewImage).map(
           (img) => img.url
         ) || [];
-      setImageUrls([...extraImages.slice(0, 4), "", "", "", ""].slice(0, 4));
+      setImageUrls([...extraImages, "", "", "", ""].slice(0, 4));
     }
   }, [spot, dispatch, spotId, parseSpotId]);
+
+  // const previewImage =
+  //   spot?.SpotImages?.find((image) => image.id === spot.previewImage)
+  //     ?.url || "";
+  // setPreviewImg(previewImage);
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -65,8 +61,20 @@ const SpotUpdateForm = () => {
     const urlRegex = /\.(png|jpg|jpeg)$/;
     const newErrors = {};
 
-    if (!previewImg.match(urlRegex)) {
-      newErrors.previewImg =
+    if (!address.trim()) newErrors.address = "Address is required.";
+    if (!city.trim()) newErrors.city = "City is required.";
+    if (!state.trim()) newErrors.state = "State is required.";
+    if (!country.trim()) newErrors.country = "Country is required.";
+    if (!description.trim() || description.length < 30)
+      newErrors.description = "Description needs a minimum of 30 characters.";
+    if (!name.trim()) newErrors.name = "Name is required.";
+    if (!price) newErrors.price = "Price is required.";
+
+    if (lat && isNaN(lat)) newErrors.lat = "Latitude must be a number.";
+    if (lng && isNaN(lng)) newErrors.lng = "Longitude must be a number.";
+
+    if (!previewImage.match(urlRegex)) {
+      newErrors.previewImage =
         "Preview Image is required and must end in png, jpg, or jpeg.";
     }
 
@@ -82,44 +90,48 @@ const SpotUpdateForm = () => {
       return;
     }
 
-    try {
-      const updatedSpot = await dispatch(fetchUpdateSpot(spotId, formData));
+    const updatedSpot = {
+      address,
+      city,
+      state,
+      country,
+      lat,
+      lng,
+      name,
+      description,
+      price,
+      previewImage,
+    };
 
-      if (updatedSpot) {
+    try {
+      const updatedSpotData = await dispatch(
+        fetchUpdateSpot(parseSpotId, updatedSpot)
+      );
+
+      if (updatedSpotData) {
         const allImages = [
-          { url: previewImg },
+          // { url: previewImage, isPreview: true },
           ...imageUrls
             .filter((url) => url.trim() !== "")
-            .map((url) => ({ url })),
+            .map((url) => ({ url, isPreview: false })),
         ];
 
         for (const image of allImages) {
-          await dispatch(fetchPostImages(updatedSpot.id, image));
+          await dispatch(fetchPostImages(updatedSpotData.id, image.url));
         }
 
-        navigate(`/spots/${updatedSpot.id}`);
+        navigate(`/spots/${updatedSpotData.id}`);
       }
     } catch (error) {
       if (error instanceof Response) {
-        try {
-          const data = await error.json();
-          if (data?.errors) {
-            setErrors(data.errors);
-          }
-        } catch (jsonError) {
-          console.error("Failed to parse error response JSON:", jsonError);
+        const data = await error.json();
+        if (data?.errors) {
+          setErrors(data.errors);
         }
       } else {
         console.error("Unexpected error:", error);
       }
     }
-  };
-
-  const handleImageUrlChange = (index, value) => {
-    const updatedUrls = [...imageUrls];
-    updatedUrls[index] = value;
-
-    setImageUrls(updatedUrls.slice(0, 4));
   };
 
   return (
@@ -138,10 +150,8 @@ const SpotUpdateForm = () => {
               id="country"
               name="country"
               placeholder="Country"
-              value={formData.country || ""}
-              onChange={(e) =>
-                setFormData({ ...formData, [e.target.name]: e.target.value })
-              }
+              value={country || ""}
+              onChange={(e) => setCountry(e.target.value)}
             />
             {errors?.country && <p className="error">{errors.country}</p>}
             <label htmlFor="address">Street Address</label>
@@ -149,10 +159,8 @@ const SpotUpdateForm = () => {
               id="address"
               name="address"
               placeholder="Address"
-              value={formData.address || ""}
-              onChange={(e) =>
-                setFormData({ ...formData, [e.target.name]: e.target.value })
-              }
+              value={address || ""}
+              onChange={(e) => setAddress(e.target.value)}
             />
             {errors?.address && <p className="error">{errors.address}</p>}
             <div className="input-pair">
@@ -162,13 +170,8 @@ const SpotUpdateForm = () => {
                   id="city"
                   name="city"
                   placeholder="City"
-                  value={formData.city || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      [e.target.name]: e.target.value,
-                    })
-                  }
+                  value={city || ""}
+                  onChange={(e) => setCity(e.target.value)}
                 />
                 {errors?.city && <p className="error">{errors.city}</p>}
               </div>
@@ -178,13 +181,8 @@ const SpotUpdateForm = () => {
                   id="state"
                   name="state"
                   placeholder="STATE"
-                  value={formData.state || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      [e.target.name]: e.target.value,
-                    })
-                  }
+                  value={state || ""}
+                  onChange={(e) => setState(e.target.value)}
                 />
                 {errors?.state && <p className="error">{errors.state}</p>}
               </div>
@@ -196,13 +194,8 @@ const SpotUpdateForm = () => {
                   id="latitude"
                   name="lat"
                   placeholder="Latitude"
-                  value={formData.lat || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      [e.target.name]: e.target.value,
-                    })
-                  }
+                  value={lat || ""}
+                  onChange={(e) => setLat(e.target.value)}
                 />
                 {errors?.lat && <p className="error">{errors.lat}</p>}
               </div>
@@ -212,13 +205,8 @@ const SpotUpdateForm = () => {
                   id="longitude"
                   name="lng"
                   placeholder="Longitude"
-                  value={formData.lng || ""}
-                  onChange={(e) =>
-                    setFormData({
-                      ...formData,
-                      [e.target.name]: e.target.value,
-                    })
-                  }
+                  value={lng || ""}
+                  onChange={(e) => setLng(e.target.value)}
                 />
                 {errors?.lng && <p className="error">{errors.lng}</p>}
               </div>
@@ -236,10 +224,8 @@ const SpotUpdateForm = () => {
               id="description"
               name="description"
               placeholder="Please write at least 30 characters"
-              value={formData.description || ""}
-              onChange={(e) =>
-                setFormData({ ...formData, [e.target.name]: e.target.value })
-              }
+              value={description || ""}
+              onChange={(e) => setDescription(e.target.value)}
             />
             {errors?.description && (
               <p className="error">{errors.description}</p>
@@ -256,10 +242,8 @@ const SpotUpdateForm = () => {
             <input
               name="name"
               placeholder="Name of your spot"
-              value={formData.name || ""}
-              onChange={(e) =>
-                setFormData({ ...formData, [e.target.name]: e.target.value })
-              }
+              value={name || ""}
+              onChange={(e) => setName(e.target.value)}
             />
             {errors?.name && <p className="error">{errors.name}</p>}
           </div>
@@ -277,10 +261,8 @@ const SpotUpdateForm = () => {
                 type="number"
                 name="price"
                 placeholder="Price per night (USD)"
-                value={formData.price || 0}
-                onChange={(e) =>
-                  setFormData({ ...formData, [e.target.name]: e.target.value })
-                }
+                value={price || 0}
+                onChange={(e) => setPrice(e.target.value)}
               />
               {errors?.price && <p className="error">{errors.price}</p>}
             </div>
@@ -294,16 +276,22 @@ const SpotUpdateForm = () => {
           <div className="form photosUrl">
             <input
               placeholder="Preview Image URL"
-              value={previewImg || ""}
-              onChange={(e) => setPreviewImg(e.target.value)}
+              value={previewImage || ""}
+              onChange={(e) => setPreviewImage(e.target.value)}
             />
-            {errors?.previewImg && <p className="error">{errors.previewImg}</p>}
+            {errors?.previewImage && (
+              <p className="error">{errors.previewImage}</p>
+            )}
             {imageUrls?.map((url, index) => (
               <div key={index}>
                 <input
                   placeholder={`Image URL ${index + 1}`}
                   value={url || ""}
-                  onChange={(e) => handleImageUrlChange(index, e.target.value)}
+                  onChange={(e) => {
+                    const updatedUrls = [...imageUrls];
+                    updatedUrls[index] = e.target.value;
+                    setImageUrls(updatedUrls);
+                  }}
                 />
                 {errors[`imageUrl${index}`] && (
                   <p className="error">{errors[`imageUrl${index}`]}</p>

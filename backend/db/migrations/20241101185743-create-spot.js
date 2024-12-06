@@ -66,7 +66,11 @@ module.exports = {
           allowNull: false,
         },
         previewImage: {
-          type: Sequelize.INTEGER,
+          type: Sequelize.TEXT, // Updated from INTEGER to TEXT
+          allowNull: true,
+          validate: {
+            isUrl: true,
+          },
         },
         createdAt: {
           allowNull: false,

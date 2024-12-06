@@ -46,10 +46,10 @@ export const createSpot = (newSpot) => ({
   newSpot,
 });
 
-export const postImages = (spotId, images) => ({
+export const postImage = (spotId, image) => ({
   type: POST_IMAGES,
   spotId,
-  images,
+  image,
 });
 
 const createReview = (spotId, newReview) => ({
@@ -151,18 +151,18 @@ export const fetchCreateSpot = (newSpot) => async (dispatch) => {
   }
 };
 
-export const fetchPostImages = (spotId, images) => async (dispatch) => {
+export const fetchPostImages = (spotId, url) => async (dispatch) => {
   const response = await csrfFetch(`/api/spots/${spotId}/images`, {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
-    body: JSON.stringify(images),
+    body: JSON.stringify({ url }),
   });
   if (response.ok) {
-    const images = await response.json();
-    dispatch(postImages(spotId, images));
-    return images;
+    const image = await response.json();
+    dispatch(postImage(spotId, image));
+    return image;
   }
 };
 
@@ -252,11 +252,11 @@ const spotsReducer = (state = {}, action) => {
       };
     }
     case POST_IMAGES: {
-      const { spotId, images } = action;
+      const { spotId, url } = action;
       const updatedSpot = { ...state.singleSpot };
 
       if (updatedSpot.id === spotId) {
-        updatedSpot.SpotImages = images;
+        updatedSpot.SpotImages = [...(updatedSpot.SpotImages || []), url];
       }
 
       return { ...state, singleSpot: updatedSpot };

@@ -7,6 +7,7 @@ if (
 ) {
   options.schema = process.env.SCHEMA;
 }
+
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
   async up(queryInterface, Sequelize) {
@@ -31,6 +32,11 @@ module.exports = {
             key: "id",
           },
           onDelete: "CASCADE",
+        },
+        isPreview: {
+          type: Sequelize.BOOLEAN, // Added isPreview field
+          allowNull: false,
+          defaultValue: false,
         },
         createdAt: {
           allowNull: false,
