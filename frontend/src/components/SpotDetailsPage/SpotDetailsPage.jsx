@@ -19,7 +19,6 @@ function SpotDetailsPage() {
   const spot = useSelector((state) => state.spots.singleSpot);
   const [setPreviewImage] = useState("");
   const sessionUser = useSelector((state) => state.session.user);
-  console.log("spot:", spot);
   useEffect(() => {
     dispatch(fetchSingleSpot(parseInt(spotId)));
     dispatch(fetchSpotImages(parseInt(spotId)));
