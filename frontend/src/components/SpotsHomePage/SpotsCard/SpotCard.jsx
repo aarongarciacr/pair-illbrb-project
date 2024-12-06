@@ -1,12 +1,9 @@
 import "./SpotCard.css";
 import { Link } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { fetchSpotPreviewImage } from "../../../store/spots";
+import { useState } from "react";
 
 function SpotCard({ id, previewImage, city, state, price, avgRating, name }) {
-  const dispatch = useDispatch();
-  const [imageUrl, setImageUrl] = useState(previewImage);
+  const [imageUrl] = useState(previewImage);
   // useEffect(() => {
   //   async function getPreviewImage() {
   //     const response = await dispatch(fetchSpotPreviewImage(id));

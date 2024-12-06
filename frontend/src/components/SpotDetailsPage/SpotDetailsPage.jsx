@@ -17,7 +17,7 @@ function SpotDetailsPage() {
   const dispatch = useDispatch();
   const { spotId } = useParams();
   const spot = useSelector((state) => state.spots.singleSpot);
-  const [previewImage, setPreviewImage] = useState("");
+  const [setPreviewImage] = useState("");
   const sessionUser = useSelector((state) => state.session.user);
   console.log("spot:", spot);
   useEffect(() => {

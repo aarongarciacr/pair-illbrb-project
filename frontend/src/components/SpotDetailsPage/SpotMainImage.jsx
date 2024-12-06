@@ -1,12 +1,6 @@
 import "./SpotMainImage.css";
-import { useDispatch } from "react-redux";
-import { useState, useEffect } from "react";
-import { fetchSpotPreviewImage } from "../../store/spots";
 
-function SpotMainImage({ previewImage, name, location, id, onImageUrlChange }) {
-  const dispatch = useDispatch();
-  const [imageUrl, setImageUrl] = useState("");
-  console.log("previmg:", previewImage);
+function SpotMainImage({ previewImage, name, location }) {
   // useEffect(() => {
   //   async function getPreviewImage() {
   //     const response = await dispatch(fetchSpotPreviewImage(id));
