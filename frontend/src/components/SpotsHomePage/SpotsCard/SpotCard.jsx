@@ -4,15 +4,6 @@ import { useState } from "react";
 
 function SpotCard({ id, previewImage, city, state, price, avgRating, name }) {
   const [imageUrl] = useState(previewImage);
-  // useEffect(() => {
-  //   async function getPreviewImage() {
-  //     const response = await dispatch(fetchSpotPreviewImage(id));
-  //     if (response) {
-  //       setImageUrl(response.url);
-  //     }
-  //   }
-  //   getPreviewImage();
-  // }, [dispatch, id, previewImage]);
 
   return (
     <Link to={`/spots/${id}`} className="spot-card">

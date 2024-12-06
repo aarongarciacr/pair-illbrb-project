@@ -405,28 +405,6 @@ router.post(
   }
 );
 
-router.get("/:spotId/prevImage", async (req, res) => {
-  const { spotId } = req.params;
-  const parseSpotId = parseInt(spotId);
-  // Find the spot by ID
-  const spot = await Spot.findByPk(parseSpotId);
-
-  if (!spot) {
-    return res.status(404).json({ message: "Spot not found" });
-  }
-
-  // Use the previewImage field to fetch the corresponding SpotImage
-  const prevImage = await SpotImage.findOne({
-    where: { id: spot.previewImage }, // este tiene que ser la comparacion con previewImage y spotId
-  });
-
-  if (!prevImage) {
-    return res.status(404).json({ message: "Preview image not found" });
-  }
-
-  return res.status(200).json({ url: prevImage.url });
-});
-
 //Post an image based on a SpotId
 router.post("/:spotId/images", requireAuth, async (req, res) => {
   const { spotId } = req.params;

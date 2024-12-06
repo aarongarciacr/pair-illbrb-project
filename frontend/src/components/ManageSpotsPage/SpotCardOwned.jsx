@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { useEffect, useState } from "react";
-import { fetchSpotPreviewImage } from "../../store/spots";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
 import DeleteSpotModal from "./DeleteSpotModal";
@@ -19,16 +18,6 @@ function SpotCardOwned({
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [imageUrl, setImageUrl] = useState(previewImage);
-
-  useEffect(() => {
-    async function getPreviewImage() {
-      const response = await dispatch(fetchSpotPreviewImage(id));
-      if (response) {
-        setImageUrl(response.url);
-      }
-    }
-    getPreviewImage();
-  }, [dispatch, id, previewImage]);
 
   return (
     <div className="spot-card-owned">
