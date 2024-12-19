@@ -42,7 +42,7 @@ const LoginFormModal = ({ navigate }) => {
 
   return (
     <div className="login-box">
-      <h1>Log In</h1>
+      <h1>Log Innnnn</h1>
       <form onSubmit={handleSubmit} className="login-form">
         <label htmlFor="credential" className="label">
           <input
