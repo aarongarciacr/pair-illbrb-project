@@ -4,7 +4,6 @@ import { createSelector } from "reselect";
 // Action Types
 const SET_SPOTS = "spots/setSpots";
 const SET_SINGLE_SPOT = "spot/SET_SINGLE_SPOT";
-const GET_SPOT_IMAGE_PREVIEW = "spot/GET_SPOT_IMAGE_PREVIEW";
 const GET_ADDITIONAL_IMAGES = "spot/GET_ADDITIONAL_IMAGES";
 const GET_REVIEWS = "spot/GET_REVIEWS";
 const CREATE_SPOT = "spot/SET_CREATE_SPOT";
