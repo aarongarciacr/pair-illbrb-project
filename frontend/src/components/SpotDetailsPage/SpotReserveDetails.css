@@ -5,9 +5,23 @@
     justify-content: center;
     align-items: center;
     min-height: 8rem;
-    
+    height: 100%;
 }
 
+.details-spot{
+  height: 100%;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  text-align: center;
+  grid-template-areas: 
+  '. .'
+  'numRevs numRevs';
+}
+
+.button-container-reserve-details {
+  height: 50%;
+}
 .price {
     color: black;
     font-weight: bold;
@@ -16,10 +30,15 @@
 
 .reviews {
   color: black;
+  grid-area: numRevs;
+  font-size: 1.2rem;
 }
 
 .rating {
   padding: 0 10px;
+}
+span.rating {
+  font-size: 1.2rem;
 }
 
 .reserve-button {

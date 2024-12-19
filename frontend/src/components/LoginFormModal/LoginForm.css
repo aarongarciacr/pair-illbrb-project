@@ -129,3 +129,7 @@ p {
   color: red;
   text-transform: uppercase;
 }
+
+.demo-button {
+  width: 80%;
+}

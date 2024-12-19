@@ -10,22 +10,24 @@ function SpotReserveDetails() {
 
   return (
     <div className="spot-reserve-details">
-      <p>
+      <div className="details-spot">
         <span className="price">${spot.price} night</span>
         <span className="rating">
           ⭐ {spot.avgStarRating ? spot.avgStarRating.toFixed(1) : "New"}
         </span>
         <span className="reviews">
           {spot.numReviews > 0
-            ? `· ${spot.numReviews} ${
+            ? `${spot.numReviews} ${
                 spot.numReviews === 1 ? "review" : "reviews"
               }`
             : ""}
         </span>
-      </p>
-      <button className="reserve-button" onClick={handleReserveClick}>
-        Reserve
-      </button>
+      </div>
+      <div className="button-container-reserve-details">
+        <button className="reserve-button" onClick={handleReserveClick}>
+          Reserve
+        </button>
+      </div>
     </div>
   );
 }

@@ -28,6 +28,14 @@ const LoginFormModal = ({ navigate }) => {
     }
   };
 
+  const handleDemoUser = async () => {
+    await dispatch(
+      sessionActions.login({ credential: "Demo-lition", password: "password" })
+    );
+    closeModal();
+    navigate("/");
+  };
+
   useEffect(() => {
     setIsDisable(!(credential.length >= 4 && password.length >= 6));
   }, [credential, password]);
@@ -63,6 +71,7 @@ const LoginFormModal = ({ navigate }) => {
         {errors.message && (
           <p className="invalidCredentials">{errors.message}</p>
         )}
+
         <button
           className={isDisable ? "disable-button" : "enabled-button"}
           role="button"
@@ -72,6 +81,13 @@ const LoginFormModal = ({ navigate }) => {
           <span className="text">Log In</span>
         </button>
       </form>
+      <button
+        className="enabled-button demo-button"
+        type="button"
+        onClick={handleDemoUser}
+      >
+        Demo User
+      </button>
     </div>
   );
 };

@@ -24,12 +24,6 @@ export const setSingleSpot = (spot) => ({
   spot,
 });
 
-export const getSpotImagePreview = (spotId, previewImage) => ({
-  type: GET_SPOT_IMAGE_PREVIEW,
-  spotId,
-  previewImage,
-});
-
 export const getAdditionalImages = (spotId) => ({
   type: GET_ADDITIONAL_IMAGES,
   spotId,
@@ -103,15 +97,6 @@ export const fetchSingleSpot = (spotId) => async (dispatch) => {
   if (response.ok) {
     const spot = await response.json();
     dispatch(setSingleSpot(spot));
-  }
-};
-
-export const fetchSpotPreviewImage = (spotId) => async (dispatch) => {
-  const response = await csrfFetch(`/api/spots/${spotId}/prevImage`);
-  if (response.ok) {
-    const image = await response.json();
-    dispatch(getSpotImagePreview(image));
-    return image;
   }
 };
 
@@ -215,14 +200,7 @@ const spotsReducer = (state = {}, action) => {
         singleSpot: { ...action.spot, previewImage: action.spot.previewImage },
       };
     }
-    case GET_SPOT_IMAGE_PREVIEW: {
-      const { spotId, previewImage } = action;
-      const updatedSpots = { ...state.allSpots };
-      if (updatedSpots[spotId]) {
-        updatedSpots[spotId] = { ...updatedSpots[spotId], previewImage };
-      }
-      return { ...state, allSpots: updatedSpots };
-    }
+
     case GET_REVIEWS: {
       const { spotId, reviews } = action;
 
