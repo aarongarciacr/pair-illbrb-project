@@ -62,6 +62,11 @@ const deleteSpot = (spotId) => ({
   spotId,
 });
 
+const removeImage = (imageId) => ({
+  type: "REMOVE_IMAGE",
+  imageId,
+});
+
 //normalized data
 const normalizedSpots = (spotsArray) => {
   return spotsArray.reduce((normalized, spot) => {
@@ -147,6 +152,15 @@ export const fetchPostImages = (spotId, url) => async (dispatch) => {
     const image = await response.json();
     dispatch(postImage(spotId, image));
     return image;
+  }
+};
+
+export const deleteSpotImage = (imageId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spot-images/${imageId}`, {
+    method: "DELETE",
+  });
+  if (response.ok) {
+    dispatch(removeImage(imageId));
   }
 };
 

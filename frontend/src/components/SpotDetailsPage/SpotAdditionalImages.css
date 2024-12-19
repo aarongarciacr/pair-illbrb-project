@@ -6,6 +6,10 @@
     align-self: end; 
 }
 
+.no-images {
+    text-align: center;
+}
+
 .additional-image-container {
     display: flex;
     justify-content: center;

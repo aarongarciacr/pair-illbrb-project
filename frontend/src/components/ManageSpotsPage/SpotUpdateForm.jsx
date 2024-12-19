@@ -2,7 +2,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { fetchPostImages, fetchSingleSpot } from "../../store/spots";
-import { fetchUpdateSpot } from "../../store/spots";
+import { fetchUpdateSpot, deleteSpotImage } from "../../store/spots";
 import "./SpotUpdateForm.css";
 
 const SpotUpdateForm = () => {
@@ -109,15 +109,26 @@ const SpotUpdateForm = () => {
       );
 
       if (updatedSpotData) {
-        const allImages = [
-          // { url: previewImage, isPreview: true },
-          ...imageUrls
-            .filter((url) => url.trim() !== "")
-            .map((url) => ({ url, isPreview: false })),
-        ];
+        const currentImages = spot?.SpotImages || [];
+        const newImages = imageUrls.filter((url) => url.trim() !== "");
+        const oldImageUrls = currentImages.map((img) => img.url);
 
-        for (const image of allImages) {
-          await dispatch(fetchPostImages(updatedSpotData.id, image.url));
+        // Delete images that are no longer in the list
+        const imagesToDelete = currentImages.filter(
+          (img) => !newImages.includes(img.url) && img.url !== previewImage
+        );
+
+        for (const image of imagesToDelete) {
+          await dispatch(deleteSpotImage(image.id));
+        }
+
+        // Add new images
+        const imagesToAdd = newImages.filter(
+          (url) => !oldImageUrls.includes(url)
+        );
+
+        for (const url of imagesToAdd.slice(0, 4)) {
+          await dispatch(fetchPostImages(updatedSpotData.id, url));
         }
 
         navigate(`/spots/${updatedSpotData.id}`);
