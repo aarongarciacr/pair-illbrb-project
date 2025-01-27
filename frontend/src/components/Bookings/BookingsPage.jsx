@@ -1,7 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { fetchSpots } from "../../store/spots";
-import { useNavigate } from "react-router-dom";
 import { fetchBookings } from "../../store/bookings";
 import SpotCard from "../SpotsHomePage/SpotsCard/SpotCard";
 import OpenModalButton from "../OpenModalButton/OpenModalButton";
@@ -11,7 +10,6 @@ import "./BookingsPage.css";
 
 function BookingsPage() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const bookings = useSelector((state) => state.bookings?.bookings);
   const activeBookings = bookings?.filter(
     (booking) => booking.endDate > new Date().toLocaleDateString("en-CA")

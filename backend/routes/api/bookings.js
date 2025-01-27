@@ -88,8 +88,8 @@ router.put("/:bookingId", requireAuth, validateBooking, async (req, res) => {
   */
 
   const bookedDates = allBookedDates.flatMap((booking) => [
-    new Date(booking.startDate).toLocaleDateString("en-CA"))"))),
-    new Date(booking.endDate).toLocaleDateString("en-CA"))))),
+    new Date(booking.startDate).toLocaleDateString("en-CA"),
+    new Date(booking.endDate).toLocaleDateString("en-CA"),
   ]);
 
   if (bookedDates.includes(startDate) || bookedDates.includes(endDate)) {

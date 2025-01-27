@@ -1,11 +1,7 @@
 import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
 import "./EditBookingModal.css";
-import {
-  fetchBookings,
-  fetchDeleteBooking,
-  fetchUpdateBooking,
-} from "../../store/bookings";
+import { fetchBookings, fetchUpdateBooking } from "../../store/bookings";
 import { useState } from "react";
 
 const EditBookingModal = ({ bookingId, startDate, endDate }) => {

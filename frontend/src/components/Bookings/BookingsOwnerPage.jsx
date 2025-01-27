@@ -19,7 +19,6 @@ function BookingsOwnerPage() {
   }, [dispatch]);
 
   const spotsOwned = useSelector(selectSpotsOwned);
-  console.log("spotowned", spotsOwned);
   useEffect(() => {
     if (spotsOwned.length > 0) {
       for (let spot of spotsOwned) {
@@ -27,7 +26,7 @@ function BookingsOwnerPage() {
         dispatch(fetchBookingsBySpot(spot.id));
       }
     }
-  }, [dispatch, spotsOwned.length]);
+  }, [dispatch, spotsOwned.length, spotsOwned]);
 
   if (!spotsOwned || spotsOwned.length === 0) {
     return <p>No spots available</p>;

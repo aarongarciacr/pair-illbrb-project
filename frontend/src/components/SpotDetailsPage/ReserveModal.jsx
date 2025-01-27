@@ -1,6 +1,6 @@
 import { useModal } from "../../context/Modal";
 import { useDispatch } from "react-redux";
-import { fetchBookings, fetchUpdateBooking } from "../../store/bookings";
+import { fetchBookings } from "../../store/bookings";
 import { fetchReserveSpot } from "../../store/spots";
 import { useState } from "react";
 
