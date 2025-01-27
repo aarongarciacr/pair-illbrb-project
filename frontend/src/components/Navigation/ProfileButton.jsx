@@ -63,12 +63,24 @@ function ProfileButton({ user }) {
 
             <li id="email">{user.email}</li>
             <div className="manage-container">
-              <Link to="/spots/current" id="manage-spots">
-                Manage Spots
-              </Link>
-              <Link to="/reviews/current" id="manage-reviews">
-                Manage Reviews
-              </Link>
+              <div className="owner-manage">
+                <p className="owner">Owner</p>
+                <Link to="/spots/current" id="manage-spots">
+                  Manage Spots
+                </Link>
+                <Link to="bookings/owner" id="manage-bookings">
+                  Manage Bookings
+                </Link>
+              </div>
+              <div className="renter-manage">
+                <p className="renter">Renter</p>
+                <Link to="/bookings/current" id="manage-bookings">
+                  Manage Bookings
+                </Link>
+                <Link to="/reviews/current" id="manage-reviews">
+                  Manage Reviews
+                </Link>
+              </div>
             </div>
             <li>
               <button id="logout" onClick={logout}>

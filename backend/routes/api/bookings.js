@@ -4,6 +4,7 @@ const { requireAuth } = require("../../utils/auth");
 const router = express.Router("/bookings");
 const { check } = require("express-validator");
 const { handleValidationErrors } = require("../../utils/validation");
+const { Sequelize } = require("sequelize");
 
 router.get("/current", requireAuth, async (req, res) => {
   const { user } = req;
@@ -12,20 +13,26 @@ router.get("/current", requireAuth, async (req, res) => {
     include: [{ model: Spot }],
   });
 
-  return res.json({ Bookings: bookings });
+  return res.json(bookings);
 });
 
 const validateBooking = [
   check("startDate")
-    .isAfter(new Date().toISOString().split("T")[0])
-    .withMessage("startDate cannot be in the past"),
-  check("endDate").custom((value, { req }) => {
-    const { startDate } = req.body;
-    if (new Date(value) <= new Date(startDate)) {
-      throw new Error("endDate cannot be on or before startDate");
-    }
-    return true;
-  }),
+    .isDate()
+    .withMessage("Start date must be a valid date")
+    .isAfter(new Date().toLocaleDateString("en-CA"))
+    .withMessage("Start date cannot be in the past"),
+  check("endDate")
+    .isDate()
+    .withMessage("End date must be a valid date")
+    .custom((value, { req }) => {
+      const { startDate } = req.body;
+      if (new Date(value) <= new Date(startDate)) {
+        throw new Error("End date must be after the start date");
+      }
+      return true;
+    }),
+
   handleValidationErrors,
 ];
 
@@ -65,7 +72,10 @@ router.put("/:bookingId", requireAuth, validateBooking, async (req, res) => {
   ]
   */
   const allBookedDates = await Booking.findAll({
-    where: { id: bookingId },
+    where: {
+      spotId: booking.spotId,
+      id: { [Sequelize.Op.ne]: bookingId }, // Exclude current booking
+    },
     attributes: ["startDate", "endDate"],
   });
 
@@ -78,8 +88,8 @@ router.put("/:bookingId", requireAuth, validateBooking, async (req, res) => {
   */
 
   const bookedDates = allBookedDates.flatMap((booking) => [
-    new Date(booking.startDate).toISOString().split("T")[0],
-    new Date(booking.endDate).toISOString().split("T")[0],
+    new Date(booking.startDate).toLocaleDateString("en-CA"))"))),
+    new Date(booking.endDate).toLocaleDateString("en-CA"))))),
   ]);
 
   if (bookedDates.includes(startDate) || bookedDates.includes(endDate)) {
@@ -96,6 +106,34 @@ router.put("/:bookingId", requireAuth, validateBooking, async (req, res) => {
     startDate,
     endDate,
   });
+
+  return res.status(200).json(booking);
+});
+
+router.delete("/:bookingId", requireAuth, async (req, res) => {
+  const bookingId = parseInt(req.params.bookingId);
+  const userId = parseInt(req.user.id);
+
+  const booking = await Booking.findOne({
+    where: { id: bookingId, userId },
+  });
+
+  if (!booking) {
+    return res.status(404).json({
+      message: "Booking couldn't be found",
+    });
+  }
+
+  const bookingEndDate = new Date(booking.endDate);
+  const currentDate = new Date();
+
+  if (bookingEndDate < currentDate) {
+    return res.status(403).json({
+      message: "Past bookings can't be deleted",
+    });
+  }
+
+  await booking.destroy();
 
   return res.status(200).json(booking);
 });

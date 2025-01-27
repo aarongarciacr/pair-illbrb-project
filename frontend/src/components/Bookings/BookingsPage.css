@@ -1,0 +1,94 @@
+.active-bookings, .past-bookings {
+    min-width: 85%;
+}
+
+.spot-card-container {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    min-height: fit-content;
+  }
+  
+.spot-card {
+    min-height: fit-content;
+}
+
+.booking-buttons {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+}
+
+/* Calendar Styles */
+.bookings-calendar {
+  padding: 1rem;
+  margin-top: 1rem;
+}
+
+.react-calendar {
+  width: 100%;
+  max-width: 400px;
+  background: white;
+  border: 1px solid #e6e6e6;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+.react-calendar__tile {
+  padding: 0.75em 0.5em;
+  text-align: center;
+  line-height: 16px;
+}
+
+.react-calendar__month-view__days__day {
+  color: #484848;
+}
+
+.react-calendar__tile:enabled:hover,
+.react-calendar__tile:enabled:focus {
+  background-color: #f8f8f8;
+  border-radius: 4px;
+}
+
+.react-calendar__tile--active {
+  background-color: #00a699 !important;
+  color: white;
+  border-radius: 4px;
+}
+
+.booked-date {
+  background-color: #ff5a5f !important;
+  color: white;
+  border-radius: 4px;
+}
+
+.react-calendar__navigation {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.5em 0;
+  background-color: #f8f8f8;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.react-calendar__navigation button {
+  min-width: 44px;
+  background: none;
+  font-size: 16px;
+  padding: 8px;
+}
+
+.react-calendar__navigation button:enabled:hover,
+.react-calendar__navigation button:enabled:focus {
+  background-color: #f8f8f8;
+  border-radius: 4px;
+}
+
+.react-calendar__month-view__weekdays {
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  font-size: 0.8em;
+  color: #757575;
+}

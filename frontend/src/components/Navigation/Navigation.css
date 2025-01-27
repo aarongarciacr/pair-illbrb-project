@@ -190,11 +190,25 @@
   }
 }
 
+.owner-manage,
+.renter-manage {
+  display: flex ;
+  flex-direction: column;
+  padding-bottom: 10px;
+  border-bottom: 2px solid rgba(163, 163, 163, 0.516);
+}
+
+.owner, .renter {
+  margin: 0;
+  color: rgb(58, 58, 58);
+}
+
 #login-link,
 #signup-link,
 .createSpot,
 #manage-spots,
 #manage-reviews,
+#manage-bookings,
 .home-link
  {
   text-align: center;
@@ -206,13 +220,20 @@
 #home-link:hover,
 .createSpot:hover,
 #manage-spots:hover,
-#manage-reviews:hover {
+#manage-reviews:hover,
+#manage-bookings:hover {
   transform: scale(0.9);
   opacity: 0.75;
   cursor: pointer;
 }
 .home-link:hover {
   animation: scaleUpDown 0.3s ease-in-out forwards; 
+}
+
+#manage-spots,
+#manage-reviews,
+#manage-bookings {
+  color: rgb(54, 54, 191);
 }
 
 #logout {
@@ -266,7 +287,3 @@ ul {
   margin-bottom: 10px;
 }
 
-#manage-spots,
-#manage-reviews {
-  color: rgb(54, 54, 191);
-}

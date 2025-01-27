@@ -11,6 +11,8 @@ const POST_IMAGES = "spotPOST_IMAGES";
 const CREATE_REVIEW = "reviews/CREATE_REVIEW";
 const UPDATE_SPOT = "spot/UPDATE_SPOT";
 const DELETE_SPOT = "spot/DELETE_SPOT";
+const RESERVE_SPOT = "spot/RESERVE_SPOT";
+const GET_BOOKINGS_BY_SPOT = "spot/GET_BOOKINGS_BY_SPOT";
 
 // Action Creators
 export const setSpots = (spots) => ({
@@ -67,6 +69,18 @@ const removeImage = (imageId) => ({
   imageId,
 });
 
+const reserveSpot = (spotId, newBooking) => ({
+  type: RESERVE_SPOT,
+  spotId,
+  newBooking,
+});
+
+const getBookingsBySpot = (spotId, bookings) => ({
+  type: GET_BOOKINGS_BY_SPOT,
+  spotId,
+  bookings,
+});
+
 //normalized data
 const normalizedSpots = (spotsArray) => {
   return spotsArray.reduce((normalized, spot) => {
@@ -84,6 +98,12 @@ export const selectSpotsArray = createSelector([selectAllSpots], (allSpots) =>
         (a, b) => new Date(b.createdAt) - new Date(a.createdAt)
       )
     : []
+);
+
+export const selectSpotsOwned = createSelector(
+  [selectAllSpots, (state) => state.session.user?.id],
+  (allSpots, userId) =>
+    Object.values(allSpots).filter((spot) => spot.ownerId === userId)
 );
 
 // Thunk
@@ -201,6 +221,30 @@ export const fetchDeleteSpot = (spotId) => async (dispatch) => {
   }
 };
 
+export const fetchReserveSpot = (spotId, newBooking) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}/bookings`, {
+    method: "POST",
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(newBooking),
+  });
+  if (response.ok) {
+    const booking = await response.json();
+    dispatch(reserveSpot(spotId, booking));
+    return booking;
+  }
+};
+
+export const fetchBookingsBySpot = (spotId) => async (dispatch) => {
+  const response = await csrfFetch(`/api/spots/${spotId}/bookings`);
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(getBookingsBySpot(spotId, data.Bookings));
+    return data.Bookings;
+  }
+};
+
 // Reducer
 const spotsReducer = (state = {}, action) => {
   switch (action.type) {
@@ -281,6 +325,26 @@ const spotsReducer = (state = {}, action) => {
         newState.singleSpot = null;
       }
       return newState;
+    }
+    case RESERVE_SPOT: {
+      const { spotId, newBooking } = action;
+      const updatedSpot = { ...state.singleSpot };
+
+      if (updatedSpot.id === spotId) {
+        updatedSpot.Bookings = [...(updatedSpot.Bookings || []), newBooking];
+      }
+
+      return { ...state, singleSpot: updatedSpot };
+    }
+    case GET_BOOKINGS_BY_SPOT: {
+      const { spotId, bookings } = action;
+      const updatedSpot = { ...state.singleSpot };
+
+      if (updatedSpot.id === spotId) {
+        updatedSpot.Bookings = bookings;
+      }
+
+      return { ...state, singleSpot: updatedSpot };
     }
     default:
       return state;

@@ -1,12 +1,10 @@
 import "./SpotReserveDetails.css";
 import { useSelector } from "react-redux";
+import OpenModalButton from "../OpenModalButton/OpenModalButton";
+import ReserveModal from "./ReserveModal";
 
 function SpotReserveDetails() {
   const spot = useSelector((state) => state.spots.singleSpot);
-
-  const handleReserveClick = () => {
-    alert("Feature Coming Soon...");
-  };
 
   return (
     <div className="spot-reserve-details">
@@ -24,9 +22,11 @@ function SpotReserveDetails() {
         </span>
       </div>
       <div className="button-container-reserve-details">
-        <button className="reserve-button" onClick={handleReserveClick}>
-          Reserve
-        </button>
+        <OpenModalButton
+          modalComponent={<ReserveModal spotId={spot?.id} />}
+          buttonText={"Reserve"}
+          className={"reserve-button"}
+        />
       </div>
     </div>
   );

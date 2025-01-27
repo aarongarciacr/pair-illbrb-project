@@ -181,7 +181,7 @@ router.get("/:spotId/bookings", async (req, res) => {
 
 const justTheDate = (value) => {
   const date = new Date(value);
-  return new Date(date.toISOString().split("T")[0]);
+  return new Date(date.toLocaleDateString("en-CA"));
 };
 const verifyMakeBooking = [
   requireAuth,

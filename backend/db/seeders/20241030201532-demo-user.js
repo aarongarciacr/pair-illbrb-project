@@ -4,7 +4,7 @@ const { User } = require("../models");
 const bcrypt = require("bcryptjs");
 
 const options = {};
-if (process.env.NODE_ENV === "production") {
+if (process.env.NODE_ENV === "development_with_postgres") {
   options.schema = process.env.SCHEMA; // Define your schema in options object
 }
 

@@ -9,7 +9,7 @@
     "start": "dotenv per-env",
     "start:development": "nodemon --legacy-watch bin/www",
     "start:production": "node ./bin/www",
-    "start:development_with_postgres": "nodemon bin/www",
+    "start:postgres": "nodemon bin/www",
     "build": "node psql-setup-script.js"
   },
   "keywords": [],

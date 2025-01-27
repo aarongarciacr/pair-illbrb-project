@@ -9,6 +9,8 @@ import SpotCreation from "./components/SpotCreation/SpotCreation";
 import ManageSpotsPage from "./components/ManageSpotsPage/ManageSpotsPage";
 import SpotUpdateForm from "./components/ManageSpotsPage/SpotUpdateForm";
 import ManageReviewPage from "./components/ManageReviews/ManageReviewsPage";
+import BookingsPage from "./components/Bookings/BookingsPage";
+import BookingsOwnerPage from "./components/Bookings/BookingsOwnerPage";
 
 function Layout() {
   const dispatch = useDispatch();
@@ -55,6 +57,14 @@ const router = createBrowserRouter([
       {
         path: "/reviews/current",
         element: <ManageReviewPage />,
+      },
+      {
+        path: "/bookings/current",
+        element: <BookingsPage />,
+      },
+      {
+        path: "/bookings/owner",
+        element: <BookingsOwnerPage />,
       },
     ],
   },
